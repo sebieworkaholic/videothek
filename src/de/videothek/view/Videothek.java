@@ -30,9 +30,17 @@ public class Videothek extends javax.swing.JFrame {
     private void initComponents() {
 
         jTPHauptmenue = new javax.swing.JTabbedPane();
-        jPAusleihe = new javax.swing.JPanel();
+        jPAusleihen = new javax.swing.JPanel();
+        jTPAusleihenMenu = new javax.swing.JTabbedPane();
+        jPAusleiheStarten = new javax.swing.JPanel();
+        jPOffeneAusleihenGesamt = new javax.swing.JPanel();
+        jPOffeneAusleihenKunde = new javax.swing.JPanel();
         jPRueckgabe = new javax.swing.JPanel();
         jPKunden = new javax.swing.JPanel();
+        jTPKundenMenu = new javax.swing.JTabbedPane();
+        jPKundeBearbeiten = new javax.swing.JPanel();
+        jPKundeLoeschen = new javax.swing.JPanel();
+        jPNeuerKunde = new javax.swing.JPanel();
         jPMedien = new javax.swing.JPanel();
         jPFooter = new javax.swing.JPanel();
         jLDate = new javax.swing.JLabel();
@@ -45,18 +53,59 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPHauptmenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        javax.swing.GroupLayout jPAusleiheLayout = new javax.swing.GroupLayout(jPAusleihe);
-        jPAusleihe.setLayout(jPAusleiheLayout);
-        jPAusleiheLayout.setHorizontalGroup(
-            jPAusleiheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1019, Short.MAX_VALUE)
+        jTPAusleihenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        javax.swing.GroupLayout jPAusleiheStartenLayout = new javax.swing.GroupLayout(jPAusleiheStarten);
+        jPAusleiheStarten.setLayout(jPAusleiheStartenLayout);
+        jPAusleiheStartenLayout.setHorizontalGroup(
+            jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
         );
-        jPAusleiheLayout.setVerticalGroup(
-            jPAusleiheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+        jPAusleiheStartenLayout.setVerticalGroup(
+            jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
         );
 
-        jTPHauptmenue.addTab("Ausleihen", jPAusleihe);
+        jTPAusleihenMenu.addTab("Ausleihe Starten...", jPAusleiheStarten);
+
+        javax.swing.GroupLayout jPOffeneAusleihenGesamtLayout = new javax.swing.GroupLayout(jPOffeneAusleihenGesamt);
+        jPOffeneAusleihenGesamt.setLayout(jPOffeneAusleihenGesamtLayout);
+        jPOffeneAusleihenGesamtLayout.setHorizontalGroup(
+            jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPOffeneAusleihenGesamtLayout.setVerticalGroup(
+            jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
+        );
+
+        jTPAusleihenMenu.addTab("Offene Ausleihen Gesamt", jPOffeneAusleihenGesamt);
+
+        javax.swing.GroupLayout jPOffeneAusleihenKundeLayout = new javax.swing.GroupLayout(jPOffeneAusleihenKunde);
+        jPOffeneAusleihenKunde.setLayout(jPOffeneAusleihenKundeLayout);
+        jPOffeneAusleihenKundeLayout.setHorizontalGroup(
+            jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPOffeneAusleihenKundeLayout.setVerticalGroup(
+            jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
+        );
+
+        jTPAusleihenMenu.addTab("Offene Ausleihen für Kunde", jPOffeneAusleihenKunde);
+
+        javax.swing.GroupLayout jPAusleihenLayout = new javax.swing.GroupLayout(jPAusleihen);
+        jPAusleihen.setLayout(jPAusleihenLayout);
+        jPAusleihenLayout.setHorizontalGroup(
+            jPAusleihenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTPAusleihenMenu)
+        );
+        jPAusleihenLayout.setVerticalGroup(
+            jPAusleihenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTPAusleihenMenu)
+        );
+
+        jTPHauptmenue.addTab("Ausleihen", jPAusleihen);
 
         javax.swing.GroupLayout jPRueckgabeLayout = new javax.swing.GroupLayout(jPRueckgabe);
         jPRueckgabe.setLayout(jPRueckgabeLayout);
@@ -66,20 +115,61 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPRueckgabeLayout.setVerticalGroup(
             jPRueckgabeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 677, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Rückgabe", jPRueckgabe);
+
+        jTPKundenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        javax.swing.GroupLayout jPKundeBearbeitenLayout = new javax.swing.GroupLayout(jPKundeBearbeiten);
+        jPKundeBearbeiten.setLayout(jPKundeBearbeitenLayout);
+        jPKundeBearbeitenLayout.setHorizontalGroup(
+            jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPKundeBearbeitenLayout.setVerticalGroup(
+            jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
+        );
+
+        jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
+
+        javax.swing.GroupLayout jPKundeLoeschenLayout = new javax.swing.GroupLayout(jPKundeLoeschen);
+        jPKundeLoeschen.setLayout(jPKundeLoeschenLayout);
+        jPKundeLoeschenLayout.setHorizontalGroup(
+            jPKundeLoeschenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPKundeLoeschenLayout.setVerticalGroup(
+            jPKundeLoeschenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
+        );
+
+        jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
+
+        javax.swing.GroupLayout jPNeuerKundeLayout = new javax.swing.GroupLayout(jPNeuerKunde);
+        jPNeuerKunde.setLayout(jPNeuerKundeLayout);
+        jPNeuerKundeLayout.setHorizontalGroup(
+            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPNeuerKundeLayout.setVerticalGroup(
+            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 648, Short.MAX_VALUE)
+        );
+
+        jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
 
         javax.swing.GroupLayout jPKundenLayout = new javax.swing.GroupLayout(jPKunden);
         jPKunden.setLayout(jPKundenLayout);
         jPKundenLayout.setHorizontalGroup(
             jPKundenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1019, Short.MAX_VALUE)
+            .addComponent(jTPKundenMenu)
         );
         jPKundenLayout.setVerticalGroup(
             jPKundenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addComponent(jTPKundenMenu)
         );
 
         jTPHauptmenue.addTab("Kunden", jPKunden);
@@ -92,7 +182,7 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPMedienLayout.setVerticalGroup(
             jPMedienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 677, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Medien", jPMedien);
@@ -172,11 +262,19 @@ public class Videothek extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLDate;
-    private javax.swing.JPanel jPAusleihe;
+    private javax.swing.JPanel jPAusleiheStarten;
+    private javax.swing.JPanel jPAusleihen;
     private javax.swing.JPanel jPFooter;
+    private javax.swing.JPanel jPKundeBearbeiten;
+    private javax.swing.JPanel jPKundeLoeschen;
     private javax.swing.JPanel jPKunden;
     private javax.swing.JPanel jPMedien;
+    private javax.swing.JPanel jPNeuerKunde;
+    private javax.swing.JPanel jPOffeneAusleihenGesamt;
+    private javax.swing.JPanel jPOffeneAusleihenKunde;
     private javax.swing.JPanel jPRueckgabe;
+    private javax.swing.JTabbedPane jTPAusleihenMenu;
     private javax.swing.JTabbedPane jTPHauptmenue;
+    private javax.swing.JTabbedPane jTPKundenMenu;
     // End of variables declaration//GEN-END:variables
 }
