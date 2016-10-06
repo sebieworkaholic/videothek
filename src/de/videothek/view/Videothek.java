@@ -46,9 +46,9 @@ public class Videothek extends javax.swing.JFrame {
         jPRueckgabe = new javax.swing.JPanel();
         jPKunden = new javax.swing.JPanel();
         jTPKundenMenu = new javax.swing.JTabbedPane();
+        jPNeuerKunde = new javax.swing.JPanel();
         jPKundeBearbeiten = new javax.swing.JPanel();
         jPKundeLoeschen = new javax.swing.JPanel();
-        jPNeuerKunde = new javax.swing.JPanel();
         jPMedien = new javax.swing.JPanel();
         jPFooter = new javax.swing.JPanel();
         jLDate = new javax.swing.JLabel();
@@ -184,6 +184,19 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPKundenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        javax.swing.GroupLayout jPNeuerKundeLayout = new javax.swing.GroupLayout(jPNeuerKunde);
+        jPNeuerKunde.setLayout(jPNeuerKundeLayout);
+        jPNeuerKundeLayout.setHorizontalGroup(
+            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1014, Short.MAX_VALUE)
+        );
+        jPNeuerKundeLayout.setVerticalGroup(
+            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 645, Short.MAX_VALUE)
+        );
+
+        jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
+
         javax.swing.GroupLayout jPKundeBearbeitenLayout = new javax.swing.GroupLayout(jPKundeBearbeiten);
         jPKundeBearbeiten.setLayout(jPKundeBearbeitenLayout);
         jPKundeBearbeitenLayout.setHorizontalGroup(
@@ -209,19 +222,6 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
-
-        javax.swing.GroupLayout jPNeuerKundeLayout = new javax.swing.GroupLayout(jPNeuerKunde);
-        jPNeuerKunde.setLayout(jPNeuerKundeLayout);
-        jPNeuerKundeLayout.setHorizontalGroup(
-            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1014, Short.MAX_VALUE)
-        );
-        jPNeuerKundeLayout.setVerticalGroup(
-            jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-        );
-
-        jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
 
         javax.swing.GroupLayout jPKundenLayout = new javax.swing.GroupLayout(jPKunden);
         jPKunden.setLayout(jPKundenLayout);
