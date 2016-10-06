@@ -43,7 +43,7 @@ public class Videothek extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
 
-        jTPHauptmenue.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTPHauptmenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPAusleiheLayout = new javax.swing.GroupLayout(jPAusleihe);
         jPAusleihe.setLayout(jPAusleiheLayout);
@@ -53,7 +53,7 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPAusleiheLayout.setVerticalGroup(
             jPAusleiheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Ausleihen", jPAusleihe);
@@ -66,7 +66,7 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPRueckgabeLayout.setVerticalGroup(
             jPRueckgabeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Rückgabe", jPRueckgabe);
@@ -79,7 +79,7 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPKundenLayout.setVerticalGroup(
             jPKundenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Kunden", jPKunden);
@@ -92,12 +92,15 @@ public class Videothek extends javax.swing.JFrame {
         );
         jPMedienLayout.setVerticalGroup(
             jPMedienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Medien", jPMedien);
 
-        jLDate.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPFooter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLDate.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLDate.setText(AktuellesDatum.getAktuellesDatumDDMMYYYY());
 
         javax.swing.GroupLayout jPFooterLayout = new javax.swing.GroupLayout(jPFooter);
@@ -105,12 +108,13 @@ public class Videothek extends javax.swing.JFrame {
         jPFooterLayout.setHorizontalGroup(
             jPFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPFooterLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLDate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLDate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPFooterLayout.setVerticalGroup(
             jPFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLDate, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+            .addComponent(jLDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,14 +122,17 @@ public class Videothek extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTPHauptmenue)
-            .addComponent(jPFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPHauptmenue, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTPHauptmenue)
+                .addGap(18, 18, 18)
+                .addComponent(jPFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
