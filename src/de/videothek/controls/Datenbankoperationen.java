@@ -61,6 +61,10 @@ public class Datenbankoperationen {
         }
     }
     
+    /////////////////////////
+    ////    Kategorie    ////
+    /////////////////////////
+    
     //Methode zum Ausgeben der passenden 'Kategorie-ID' zum 'Kategorienamen'
     public static int kategorieNameToKategorieID(String kategorieName) {
 
@@ -126,7 +130,6 @@ public class Datenbankoperationen {
         return aList;
     }
     
-    //FEHLER
     //Neue Kategorie anlegen in der Datenbank
     public static void kategorieAnlegen(String bezeichnung) {
 
@@ -152,4 +155,72 @@ public class Datenbankoperationen {
 
         }
     }
+    
+    //Kategorie löschen
+    public static void kategorieLoeschen(int kategorie_id) {
+        PreparedStatement ps;
+        try {
+            ps = connection_object.prepareStatement("DELETE FROM kategorien WHERE KAT_ID=?");
+            ps.setInt(1, kategorie_id);
+            ps.execute();
+        } catch (SQLException ex) {
+        }
+    }
+    
+    public static void kategorieLoeschen(String kategorieName) {
+        PreparedStatement ps;
+        try {
+            ps = connection_object.prepareStatement("DELETE FROM kategorien WHERE Kategoriename=?");
+            ps.setString(1, kategorieName);
+            ps.execute();
+        } catch (SQLException ex) {
+        }
+
+    }
+    
+    //Kategorie bearbeiten
+    public static void kategorieBezeichnungAendern(int kategorie_id, String kategorieName_neu) {
+        PreparedStatement statement = null;
+        String sqlString = "UPDATE kategorie SET Kategoriename=? WHERE KAT_ID=?";
+        ArrayList<Kategorie> prüfen = getKategorieNameAlle();
+        boolean contains = false;
+        
+        //Überprüfen ob die neu eingetragene Kategorie schon besteht
+        for (Kategorie k : prüfen) {
+            if (k.getBezeichnung().equals(kategorieName_neu)) {
+                contains = true;
+            }
+        }
+        if (contains) {
+            JOptionPane.showMessageDialog(null, "Kategorie existiert bereits!");
+        } else {
+            //Update durchführen
+            try {
+
+                statement = connection_object.prepareStatement(sqlString);
+                statement.setString(1, kategorieName_neu);
+                statement.setInt(2, kategorie_id);
+                statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
