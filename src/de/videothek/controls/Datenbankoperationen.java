@@ -128,15 +128,11 @@ public class Datenbankoperationen {
     
     //FEHLER
     //Neue Kategorie anlegen in der Datenbank
-    public static int kategorieAnlegen(String bezeichnung) {
+    public static void kategorieAnlegen(String bezeichnung) {
 
         PreparedStatement ps;
-        PreparedStatement ps2;
-        ResultSet rs;
-        int rueck = 0;
         ArrayList<Kategorie> prüfen = getKategorieNameAlle();
         Boolean contains = false;
-        //Überprüfen ob die neu eingetragene Kategorie schon besteht
         for (Kategorie k : prüfen) {
             if (k.getBezeichnung().equals(bezeichnung)) {
                 contains = true;
@@ -146,22 +142,14 @@ public class Datenbankoperationen {
             JOptionPane.showMessageDialog(null, "Kategorie existiert bereits!");
         } else {
             try {
-                ps = connection_object.prepareStatement("INSERT INTO (kategorien) Kategoriename VALUES (?)");
-                ps.setString (1,bezeichnung);
-                //ps.execute();
-                /*ps2 = connection_object.prepareStatement("SELECT LAST_INSERT_ID() AS KAT_ID");
-                rs = ps2.executeQuery();*/
-                rs = ps.executeQuery();
-                rs.next();
-                rueck = rs.getInt("KAT_ID");
+                ps = connection_object.prepareStatement("INSERT INTO kategorien (Kategoriename)" + "VALUES (?)");
+                ps.setString (1,bezeichnung);                
+                ps.execute();
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } /*catch (IOException ex) {
-                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            } 
 
         }
-        return rueck;
     }
 }
