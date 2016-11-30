@@ -42,7 +42,12 @@ public class Videothek extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTAASKundeAllAusleihen = new javax.swing.JTextArea();
         jPOffeneAusleihenGesamt = new javax.swing.JPanel();
+        jLOffeneAusleiheAuto = new javax.swing.JLabel();
         jPOffeneAusleihenKunde = new javax.swing.JPanel();
+        jLKundennummerOffeneAusleihe = new javax.swing.JLabel();
+        jLKundeOffeneAusleihenAuto = new javax.swing.JLabel();
+        jTKundennummerOffeneAusleihen = new javax.swing.JTextField();
+        jBKundennummerOffeneAusleihe = new javax.swing.JButton();
         jPRueckgabe = new javax.swing.JPanel();
         jPKunden = new javax.swing.JPanel();
         jTPKundenMenu = new javax.swing.JTabbedPane();
@@ -154,28 +159,66 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPAusleihenMenu.addTab("Ausleihe Starten...", jPAusleiheStarten);
 
+        jLOffeneAusleiheAuto.setText("<auto OffeneAusleihen");
+
         javax.swing.GroupLayout jPOffeneAusleihenGesamtLayout = new javax.swing.GroupLayout(jPOffeneAusleihenGesamt);
         jPOffeneAusleihenGesamt.setLayout(jPOffeneAusleihenGesamtLayout);
         jPOffeneAusleihenGesamtLayout.setHorizontalGroup(
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1014, Short.MAX_VALUE)
+            .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPOffeneAusleihenGesamtLayout.setVerticalGroup(
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTPAusleihenMenu.addTab("Offene Ausleihen Gesamt", jPOffeneAusleihenGesamt);
+
+        jLKundennummerOffeneAusleihe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLKundennummerOffeneAusleihe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLKundennummerOffeneAusleihe.setText("Kundennummer");
+
+        jLKundeOffeneAusleihenAuto.setText("<auto Offene Ausleihen");
+
+        jTKundennummerOffeneAusleihen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTKundennummerOffeneAusleihen.setText("Kundennummer");
+
+        jBKundennummerOffeneAusleihe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBKundennummerOffeneAusleihe.setText("Suchen");
 
         javax.swing.GroupLayout jPOffeneAusleihenKundeLayout = new javax.swing.GroupLayout(jPOffeneAusleihenKunde);
         jPOffeneAusleihenKunde.setLayout(jPOffeneAusleihenKundeLayout);
         jPOffeneAusleihenKundeLayout.setHorizontalGroup(
             jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1014, Short.MAX_VALUE)
+            .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLKundeOffeneAusleihenAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
+                        .addComponent(jLKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTKundennummerOffeneAusleihen, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
         jPOffeneAusleihenKundeLayout.setVerticalGroup(
             jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBKundennummerOffeneAusleihe, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jTKundennummerOffeneAusleihen)
+                    .addComponent(jLKundennummerOffeneAusleihe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLKundeOffeneAusleihenAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTPAusleihenMenu.addTab("Offene Ausleihen für Kunde", jPOffeneAusleihenKunde);
@@ -546,6 +589,7 @@ public class Videothek extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBASAusleiheBestaetigen;
     private javax.swing.JButton jBKundeSpeichern;
+    private javax.swing.JButton jBKundennummerOffeneAusleihe;
     private javax.swing.JButton jBLoeschen;
     private javax.swing.JButton jBSuchen;
     private javax.swing.JLabel jLASArtikelNummer;
@@ -556,11 +600,14 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLAusleiheStatusAuto;
     private javax.swing.JLabel jLDate;
     private javax.swing.JLabel jLGeburtsdatum;
+    private javax.swing.JLabel jLKundeOffeneAusleihenAuto;
     private javax.swing.JLabel jLKundennummer;
     private javax.swing.JLabel jLKundennummerAuto;
+    private javax.swing.JLabel jLKundennummerOffeneAusleihe;
     private javax.swing.JLabel jLKundennummerText;
     private javax.swing.JLabel jLNachname;
     private javax.swing.JLabel jLNachnameAuto;
+    private javax.swing.JLabel jLOffeneAusleiheAuto;
     private javax.swing.JLabel jLOrt;
     private javax.swing.JLabel jLPlz;
     private javax.swing.JLabel jLStrasse;
@@ -590,6 +637,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTextField jTFPlz;
     private javax.swing.JTextField jTFStrasse;
     private javax.swing.JTextField jTFVorname;
+    private javax.swing.JTextField jTKundennummerOffeneAusleihen;
     private javax.swing.JTabbedPane jTPAusleihenMenu;
     private javax.swing.JTabbedPane jTPHauptmenue;
     private javax.swing.JTabbedPane jTPKundenMenu;
