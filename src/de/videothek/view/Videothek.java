@@ -52,6 +52,25 @@ public class Videothek extends javax.swing.JFrame {
         jPKunden = new javax.swing.JPanel();
         jTPKundenMenu = new javax.swing.JTabbedPane();
         jPKundeBearbeiten = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTFAendernKundennummer = new javax.swing.JTextField();
+        jBAendernKdrSuchen = new javax.swing.JButton();
+        jLAenderAuto = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTFAnredeAendern = new javax.swing.JTextField();
+        jTFVornameAendern = new javax.swing.JTextField();
+        jTFNachnameAendern = new javax.swing.JTextField();
+        jTFStrasseAendern = new javax.swing.JTextField();
+        jTFPlzAendern = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTFOrtAendern = new javax.swing.JTextField();
+        jTFGebAendern = new javax.swing.JTextField();
+        jBKundeAendern = new javax.swing.JButton();
         jPNeuerKunde = new javax.swing.JPanel();
         jTFAnrede = new javax.swing.JTextField();
         jTFVorname = new javax.swing.JTextField();
@@ -249,17 +268,164 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPHauptmenue.addTab("Rückgabe", jPRueckgabe);
 
+        jTPKundenMenu.setBackground(new java.awt.Color(204, 204, 204));
         jTPKundenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Kundennummer");
+
+        jTFAendernKundennummer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFAendernKundennummer.setText("Kundennummer");
+
+        jBAendernKdrSuchen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBAendernKdrSuchen.setText("Suchen");
+
+        jLAenderAuto.setText("<auto Text");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Anrede");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Vorname");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Nachname");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Straße");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Postleitzahl");
+
+        jTFAnredeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFAnredeAendern.setText("Anrede");
+
+        jTFVornameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFVornameAendern.setText("Vorname");
+
+        jTFNachnameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFNachnameAendern.setText("Nachname");
+
+        jTFStrasseAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFStrasseAendern.setText("Straße");
+
+        jTFPlzAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFPlzAendern.setText("PLZ");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel9.setText("Ort");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Geburtsdatum");
+
+        jTFOrtAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFOrtAendern.setText("Ort");
+
+        jTFGebAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTFGebAendern.setText("Geburtsdatum");
+
+        jBKundeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBKundeAendern.setText("Änderung Speichern");
 
         javax.swing.GroupLayout jPKundeBearbeitenLayout = new javax.swing.GroupLayout(jPKundeBearbeiten);
         jPKundeBearbeiten.setLayout(jPKundeBearbeitenLayout);
         jPKundeBearbeitenLayout.setHorizontalGroup(
             jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLAenderAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                        .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFAendernKundennummer, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBAendernKdrSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFOrtAendern))
+                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFPlzAendern))
+                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFStrasseAendern))
+                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFNachnameAendern))
+                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFVornameAendern))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFAnredeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTFGebAendern)
+                                        .addComponent(jBKundeAendern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(318, 318, 318))
         );
         jPKundeBearbeitenLayout.setVerticalGroup(
             jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBAendernKdrSuchen, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFAendernKundennummer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFAnredeAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFVornameAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFNachnameAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFStrasseAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFPlzAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFOrtAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFGebAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBKundeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
@@ -588,6 +754,8 @@ public class Videothek extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBASAusleiheBestaetigen;
+    private javax.swing.JButton jBAendernKdrSuchen;
+    private javax.swing.JButton jBKundeAendern;
     private javax.swing.JButton jBKundeSpeichern;
     private javax.swing.JButton jBKundennummerOffeneAusleihe;
     private javax.swing.JButton jBLoeschen;
@@ -596,6 +764,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLASKundeAnzeigen;
     private javax.swing.JLabel jLASKundenNummer;
     private javax.swing.JLabel jLAdresseAuto;
+    private javax.swing.JLabel jLAenderAuto;
     private javax.swing.JLabel jLAnrede;
     private javax.swing.JLabel jLAusleiheStatusAuto;
     private javax.swing.JLabel jLDate;
@@ -614,6 +783,14 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLVorname;
     private javax.swing.JLabel jLVornameAuto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPAusleiheStarten;
     private javax.swing.JPanel jPAusleihen;
     private javax.swing.JPanel jPFooter;
@@ -629,14 +806,22 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTextArea jTAASKundeAllAusleihen;
     private javax.swing.JTextField jTFASArtikelNummer;
     private javax.swing.JTextField jTFASKundenNummer;
+    private javax.swing.JTextField jTFAendernKundennummer;
     private javax.swing.JTextField jTFAnrede;
+    private javax.swing.JTextField jTFAnredeAendern;
+    private javax.swing.JTextField jTFGebAendern;
     private javax.swing.JTextField jTFGeburtsdatum;
     private javax.swing.JTextField jTFKundennummer;
     private javax.swing.JTextField jTFNachname;
+    private javax.swing.JTextField jTFNachnameAendern;
     private javax.swing.JTextField jTFOrt;
+    private javax.swing.JTextField jTFOrtAendern;
     private javax.swing.JTextField jTFPlz;
+    private javax.swing.JTextField jTFPlzAendern;
     private javax.swing.JTextField jTFStrasse;
+    private javax.swing.JTextField jTFStrasseAendern;
     private javax.swing.JTextField jTFVorname;
+    private javax.swing.JTextField jTFVornameAendern;
     private javax.swing.JTextField jTKundennummerOffeneAusleihen;
     private javax.swing.JTabbedPane jTPAusleihenMenu;
     private javax.swing.JTabbedPane jTPHauptmenue;
