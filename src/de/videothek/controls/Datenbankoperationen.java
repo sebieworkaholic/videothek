@@ -7,8 +7,10 @@ package de.videothek.controls;
 
 import de.videothek.model.FSK;
 import de.videothek.model.Kategorie;
+import de.videothek.model.Kunden;
 import de.videothek.model.Medientypen;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -393,14 +395,14 @@ public class Datenbankoperationen {
 
     }
     
-    //Kategorie bearbeiten
+    //Medientyp bearbeiten
     public static void medientypBezeichnungAendern(int medientyp_id, String medientypBezeichnung_neu) {
         PreparedStatement statement = null;
         String sqlString = "UPDATE medientypen SET Bezeichnung=? WHERE Medien_ID=?";
         ArrayList<Medientypen> prüfen = getMedientypenNameAlle();
         boolean contains = false;
         
-        //Überprüfen ob die neu eingetragene Kategorie schon besteht
+        //Überprüfen ob die neu eingetragene Medientyp schon besteht
         for (Medientypen k : prüfen) {
             if (k.getBezeichnung().equals(medientypBezeichnung_neu)) {
                 contains = true;
@@ -431,20 +433,104 @@ public class Datenbankoperationen {
         }
     }
     
+    /////////////////////////
+    ////      Kunden     ////
+    /////////////////////////
     
+    //Kunden anlegen
+    public static void kundenAnlegen(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, Date geburtsdatum){
+        try {
+            
+            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("INSERT INTO t_kunden (Anrede, Vorname, Nachname, Strasse, PLZ, Ort, Geburtsdatum) VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, anrede);   
+            ps.setString(2, vorname);
+            ps.setString(3, nachname);
+            ps.setString(4, strasse);
+            ps.setString(5, plz);
+            ps.setString(6, wohnort);
+            ps.setDate(7, geburtsdatum);
+            ps.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+
+        }            
+    }
     
+    //Kunden löschen
+    public static void kundenLöschen(String kundenNr){
+        try {
+            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM t_kunden WHERE Kunden_Nr = ?");
+            ps.setString(1, kundenNr);
+            ps.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(kundenLöschen)");
+        }
+    }
     
+    //Kunden auslesen
+    public static Kunden kundeAuslesen(String kundenNr) {
+
+        ResultSet rs;
+        Kunden kunden = new Kunden();
+        try {
+            PreparedStatement ps = connection_object.prepareStatement("SELECT * FROM t_kundnen WHERE Kunden_Nr = ?");
+            ps.setString(1, kundenNr);
+            rs = ps.executeQuery();
+            int kundenID = rs.getInt("Kunden_Nr");
+            String anrede = rs.getString("Anrede");
+            String vorname = rs.getString("Vorname");
+            String nachname = rs.getString("Nachname");
+            String strasse = rs.getString("Strasse");
+            String plz = rs.getString("PLZ");
+            String wohnort = rs.getString("Ort");
+            Date geburtsdatum = rs.getDate("Geburtsdatum");
+            
+            kunden.setKundenID(kundenID);
+            kunden.setAnrede(anrede);
+            kunden.setVorname(vorname);
+            kunden.setNachname(nachname);
+            kunden.setStrasse(strasse);
+            kunden.setPlz(plz);
+            kunden.setWohnort(wohnort);
+            kunden.setGeburtsdatum(geburtsdatum);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundeAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } 
+        return kunden;
+    }
     
+    //Kunden bearbeiten
+    public static void kundenAendern(int Kunden_Nr, Kunden k) {
+        PreparedStatement statement = null;
+        String sqlString = "UPDATE kategorie SET Anrede=?, Vorname=?, Nachname=?, Strasse=?, PLZ=?, Ort=?, Geburtstag=? WHERE Kunden_Nr=?";
+        
+        //Update durchführen
+        try {
+
+            statement = connection_object.prepareStatement(sqlString);
+            statement.setString(1, k.getAnrede());
+            statement.setString(2, k.getVorname());
+            statement.setString(3, k.getNachname());
+            statement.setString(4, k.getStrasse());
+            statement.setString(5, k.getPlz());
+            statement.setString(6, k.getWohnort());
+            statement.setDate(7, k.getGeburtsdatum());
+            statement.setInt(8, k.getKundenID());
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAendern)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAendern)", "Fehler", JOptionPane.ERROR_MESSAGE);
+            }          
+        }
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
 }
