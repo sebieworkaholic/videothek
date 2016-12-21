@@ -5,7 +5,7 @@
  */
 package de.videothek.model;
 
-import java.sql.Date;
+
 
 /**
  *

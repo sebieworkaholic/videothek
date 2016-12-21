@@ -12,7 +12,6 @@ import de.videothek.model.Leihen;
 import de.videothek.model.Medien;
 import de.videothek.model.Medientypen;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +64,7 @@ public class Datenbankoperationen {
     
     //Methode zum Ausgeben der passenden 'Kategorie-ID' zum 'Kategorienamen'
     public static int kategorieNameToKategorieID(String kategorieName) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ResultSet rs;
@@ -80,11 +80,13 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieNameToKategorieID)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
         return kategorie_id;
     }
 
     //Methode zum Ausgeben des passenden 'Kategorie-Namen' zur 'Kategorie-ID'
     public static String kategorieIDToKategorieBezeichnung(int kategorie_id) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ResultSet rs;
@@ -99,11 +101,13 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieIDToKategorieBezeichnung)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
         return kategoriename;
     }
     
     //Methode zum auslesen der Kategorien im Datenbanksystem
     public static ArrayList<Kategorie> getKategorieNameAlle() {
+        verbindenZurDB();
 
         ArrayList<Kategorie> aList = new ArrayList<>();
         PreparedStatement ps;
@@ -125,11 +129,13 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     //Neue Kategorie anlegen in der Datenbank
     public static void kategorieAnlegen(String bezeichnung) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ArrayList<Kategorie> prüfen = getKategorieNameAlle();
@@ -152,10 +158,12 @@ public class Datenbankoperationen {
             } 
 
         }
+        verbindungSchließenZurDB();
     }
     
     //Kategorie löschen
     public static void kategorieLoeschen(int kategorie_id) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM kategorien WHERE KAT_ID=?");
@@ -163,9 +171,11 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
         }
+        verbindungSchließenZurDB();
     }
     
     public static void kategorieLoeschen(String kategorieName) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM kategorien WHERE Kategoriename=?");
@@ -173,11 +183,12 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
         }
-
+        verbindungSchließenZurDB();
     }
     
     //Kategorie bearbeiten
     public static void kategorieBezeichnungAendern(int kategorie_id, String kategorieName_neu) {
+        verbindenZurDB();
         PreparedStatement statement = null;
         String sqlString = "UPDATE kategorie SET Kategoriename=? WHERE KAT_ID=?";
         ArrayList<Kategorie> prüfen = getKategorieNameAlle();
@@ -212,6 +223,7 @@ public class Datenbankoperationen {
                 }
             }
         }
+        verbindungSchließenZurDB();
     }
     
     /////////////////////////
@@ -220,6 +232,7 @@ public class Datenbankoperationen {
      
     //Methode zum auslesen der Altersklassen im Datenbanksystem
     public static ArrayList<FSK> getFSKAltersklassenAlle(){
+        verbindenZurDB();
     ArrayList<FSK> aList = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
@@ -240,11 +253,13 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     //Neue Altersklasse anlegen in der Datenbank
     public static void altersklasseAnlegen(String altersklassen) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ArrayList<FSK> prüfen = getFSKAltersklassenAlle();
@@ -267,10 +282,12 @@ public class Datenbankoperationen {
             } 
 
         }
+        verbindungSchließenZurDB();
     }
     
     //Altersklasse löschen
     public static void altersklassenLoeschen(int fsk_id) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM fsk WHERE FSK_ID=?");
@@ -278,6 +295,7 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
         }
+        verbindungSchließenZurDB();
     }
     
     /////////////////////////
@@ -286,6 +304,7 @@ public class Datenbankoperationen {
     
     //Methode zum Ausgeben der passenden 'Medien-ID' zum 'Medientyp-Bezeichnung'
     public static int medientypBezeichnungToMedientypID(String medientyp_bezeichnung) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ResultSet rs;
@@ -301,11 +320,13 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieNameToKategorieID)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
         return medientyp_id;
     }
 
     //Methode zum Ausgeben des passenden 'Medientyp-Bezeichnung' zur 'Medien_ID'
     public static String medientypIDToMedientypenBezeichnung(int medientyp_id) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ResultSet rs;
@@ -320,11 +341,13 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieIDToKategorieBezeichnung)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
         return medientypBezeichnung;
     }
     
     //Methode zum auslesen der Medientyp-Bezeichnung im Datenbanksystem
     public static ArrayList<Medientypen> getMedientypenNameAlle() {
+        verbindenZurDB();
 
         ArrayList<Medientypen> aList = new ArrayList<>();
         PreparedStatement ps;
@@ -346,11 +369,13 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     //Neue Medientyp anlegen in der Datenbank
     public static void medietypenAnlegen(String bezeichnung) {
+        verbindenZurDB();
 
         PreparedStatement ps;
         ArrayList<Medientypen> prüfen = getMedientypenNameAlle();
@@ -373,10 +398,12 @@ public class Datenbankoperationen {
             } 
 
         }
+        verbindungSchließenZurDB();
     }
     
     //Medietypen löschen
     public static void medientypLoeschen(int medientyp_id) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM medientypen WHERE Medien_ID=?");
@@ -384,9 +411,11 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
         }
+        verbindungSchließenZurDB();
     }
     
     public static void medientypLoeschen(String kategorieName) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM medientypen WHERE Bezeichnung=?");
@@ -394,11 +423,12 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
         }
-
+        verbindungSchließenZurDB();
     }
     
     //Medientyp bearbeiten
     public static void medientypBezeichnungAendern(int medientyp_id, String medientypBezeichnung_neu) {
+        verbindenZurDB();
         PreparedStatement statement = null;
         String sqlString = "UPDATE medientypen SET Bezeichnung=? WHERE Medien_ID=?";
         ArrayList<Medientypen> prüfen = getMedientypenNameAlle();
@@ -433,6 +463,7 @@ public class Datenbankoperationen {
                 }
             }
         }
+        verbindungSchließenZurDB();
     }
     
     /////////////////////////
@@ -441,6 +472,7 @@ public class Datenbankoperationen {
     
     //Kunden anlegen
     public static void kundenAnlegen(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, String geburtsdatum){
+        verbindenZurDB();
         try {
             
             PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("INSERT INTO t_kunden (Anrede, Vorname, Nachname, Strasse, PLZ, Ort, Geburtsdatum) VALUES (?,?,?,?,?,?,?)");
@@ -456,11 +488,13 @@ public class Datenbankoperationen {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
 
-        }            
+        }   
+        verbindungSchließenZurDB();
     }
     
     //Kunden löschen
     public static void kundenLöschen(String kundenNr){
+        verbindenZurDB();
         try {
             PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM t_kunden WHERE Kunden_Nr = ?");
             ps.setString(1, kundenNr);
@@ -468,10 +502,12 @@ public class Datenbankoperationen {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(kundenLöschen)");
         }
+        verbindungSchließenZurDB();
     }
     
     //Kunden auslesen
     public static Kunden kundeAuslesen(String kundenNr) {
+        verbindenZurDB();
 
         ResultSet rs;
         Kunden kunden = new Kunden();
@@ -499,11 +535,13 @@ public class Datenbankoperationen {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundeAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
         } 
+        verbindungSchließenZurDB();
         return kunden;
     }
     
     //Kunden bearbeiten
     public static void kundenAendern(int Kunden_Nr, Kunden k) {
+        verbindenZurDB();
         PreparedStatement statement = null;
         String sqlString = "UPDATE kategorie SET Anrede=?, Vorname=?, Nachname=?, Strasse=?, PLZ=?, Ort=?, Geburtstag=? WHERE Kunden_Nr=?";
         
@@ -532,6 +570,7 @@ public class Datenbankoperationen {
                 JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAendern)", "Fehler", JOptionPane.ERROR_MESSAGE);
             }          
         }
+        verbindungSchließenZurDB();
     }
     
     
@@ -541,6 +580,7 @@ public class Datenbankoperationen {
     
     //Methode zum anlegen einer Media im Datenbanksystem
     public static void medienAnlegenInDB(Medien medienObject) {
+        verbindenZurDB();
 
         //Deklaration der benötigten Variablen
         String titel;
@@ -575,21 +615,25 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAnlegenInDB)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
     }
     
     //Medien löschen
     public static void medienLöschen(int FILM_ID) {
+        verbindenZurDB();
         try {
             PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM medien WHERE FILM_ID = ?");
             ps.setInt(1, FILM_ID);
             ps.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(medienLöschen)");
-        }        
+        }   
+        verbindungSchließenZurDB();
     }
     
     //Medien auslesen
     public static Medien medienAuslesen(int FILM_ID) {
+        verbindenZurDB();
 
         ResultSet rs;
         Medien medien = new Medien();
@@ -608,11 +652,13 @@ public class Datenbankoperationen {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
         } 
+        verbindungSchließenZurDB();
         return medien;
     }
     
     //Methode zum auslesen Medien Medien im Datenbanksystem
     public static ArrayList<Medien> getMedienAlle() {
+        verbindenZurDB();
 
         ArrayList<Medien> aList = new ArrayList<>();
         PreparedStatement ps;
@@ -638,12 +684,15 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     public static void medienBearbeiten(int FILM_ID) {
-        
+        verbindenZurDB();
+        verbindungSchließenZurDB();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.      
+        
     }
     
     /////////////////////////
@@ -652,6 +701,7 @@ public class Datenbankoperationen {
     
     //ausleihvorgang anlegen
     public static void leihenAnlegen(int Film_ID, int Kunden_NR, String Enddatum) {
+        verbindenZurDB();
         try {
             
             PreparedStatement ps;
@@ -668,11 +718,12 @@ public class Datenbankoperationen {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(leihenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        
+        verbindungSchließenZurDB();
     }
     
     //alle Ausleihvorgänge eines Kunden ausgeben
     public static ArrayList<Leihen> getKundenLeihenAlle(int Kunden_NR) {
+        verbindenZurDB();
         ArrayList<Leihen> aList = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
@@ -697,11 +748,13 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     //alle Ausleihvorgänge eines Medium ausgeben
     public static ArrayList<Leihen> getMediumLeihenAlle(int Film_ID) {
+        verbindenZurDB();
         ArrayList<Leihen> aList = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
@@ -726,11 +779,13 @@ public class Datenbankoperationen {
         } /*catch (IOException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+        verbindungSchließenZurDB();
         return aList;
     }
     
     //Ausleihvorgänge löschen
     public static void ausleihvorgängeLoeschen(int Kunden_NR, int Film_ID) {
+        verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM leihen WHERE Film_ID=? AND Kunden_NR=?");
@@ -740,6 +795,7 @@ public class Datenbankoperationen {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(ausleihvorgängeLoeschen)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
+        verbindungSchließenZurDB();
     }
     
 }
