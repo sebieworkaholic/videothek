@@ -3,10 +3,7 @@ package de.videothek.controls;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-/**
- *
- * @author admin
- */
+
 public class Controls {
     
     public static String getAktDatumDDMMYYYY (){ 
