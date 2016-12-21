@@ -5,7 +5,7 @@
  */
 package de.videothek.model;
 
-import java.sql.Date;
+
 
 /**
  *
@@ -20,12 +20,12 @@ public class Kunden {
      String strasse;
      String plz;
      String wohnort;
-     Date geburtsdatum;
+     String geburtsdatum;
      public Kunden (){
          
      }
 
-    public Kunden(int kundenID, String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, Date geburtsdatum) {
+    public Kunden(int kundenID, String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, String geburtsdatum) {
         this.kundenID = kundenID;
         this.anrede = anrede;
         this.vorname = vorname;
@@ -92,11 +92,11 @@ public class Kunden {
         this.wohnort = wohnort;
     }
 
-    public Date getGeburtsdatum() {
+    public String getGeburtsdatum() {
         return geburtsdatum;
     }
 
-    public void setGeburtsdatum(Date geburtsdatum) {
+    public void setGeburtsdatum(String geburtsdatum) {
         this.geburtsdatum = geburtsdatum;
     }
     

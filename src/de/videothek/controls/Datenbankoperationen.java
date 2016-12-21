@@ -440,7 +440,7 @@ public class Datenbankoperationen {
     /////////////////////////
     
     //Kunden anlegen
-    public static void kundenAnlegen(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, Date geburtsdatum){
+    public static void kundenAnlegen(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, String geburtsdatum){
         try {
             
             PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("INSERT INTO t_kunden (Anrede, Vorname, Nachname, Strasse, PLZ, Ort, Geburtsdatum) VALUES (?,?,?,?,?,?,?)");
@@ -450,7 +450,7 @@ public class Datenbankoperationen {
             ps.setString(4, strasse);
             ps.setString(5, plz);
             ps.setString(6, wohnort);
-            ps.setDate(7, geburtsdatum);
+            ps.setString(7, geburtsdatum);
             ps.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -486,7 +486,7 @@ public class Datenbankoperationen {
             String strasse = rs.getString("Strasse");
             String plz = rs.getString("PLZ");
             String wohnort = rs.getString("Ort");
-            Date geburtsdatum = rs.getDate("Geburtsdatum");
+            String geburtsdatum = rs.getString("Geburtsdatum");
             
             kunden.setKundenID(kundenID);
             kunden.setAnrede(anrede);
@@ -517,7 +517,7 @@ public class Datenbankoperationen {
             statement.setString(4, k.getStrasse());
             statement.setString(5, k.getPlz());
             statement.setString(6, k.getWohnort());
-            statement.setDate(7, k.getGeburtsdatum());
+            statement.setString(7, k.getGeburtsdatum());
             statement.setInt(8, k.getKundenID());
             statement.executeUpdate();
 
