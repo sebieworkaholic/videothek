@@ -15,13 +15,13 @@ public class Leihen {
     
     int Film_ID;
     int Kunden_Nr;
-    Date Anfangsdatum;
-    Date Enddatum;
+    String Anfangsdatum;
+    String Enddatum;
 
     public Leihen() {
     }
 
-    public Leihen(int Film_ID, int Kunden_Nr, Date Anfangsdatum, Date Enddatum) {
+    public Leihen(int Film_ID, int Kunden_Nr, String Anfangsdatum, String Enddatum) {
         this.Film_ID = Film_ID;
         this.Kunden_Nr = Kunden_Nr;
         this.Anfangsdatum = Anfangsdatum;
@@ -44,19 +44,19 @@ public class Leihen {
         this.Kunden_Nr = Kunden_Nr;
     }
 
-    public Date getAnfangsdatum() {
+    public String getAnfangsdatum() {
         return Anfangsdatum;
     }
 
-    public void setAnfangsdatum(Date Anfangsdatum) {
+    public void setAnfangsdatum(String Anfangsdatum) {
         this.Anfangsdatum = Anfangsdatum;
     }
 
-    public Date getEnddatum() {
+    public String getEnddatum() {
         return Enddatum;
     }
 
-    public void setEnddatum(Date Enddatum) {
+    public void setEnddatum(String Enddatum) {
         this.Enddatum = Enddatum;
     }
     

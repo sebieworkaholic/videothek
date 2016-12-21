@@ -544,11 +544,11 @@ public class Datenbankoperationen {
 
         //Deklaration der benötigten Variablen
         String titel;
-        Date erscheinungsjahr;
+        String erscheinungsjahr;
         int medientyp, kategorie, fsk;
 
         titel = medienObject.getTitel();                            //Variable erwartet String
-        erscheinungsjahr = medienObject.getErscheinungsjahr();      //Variable erwartet Date
+        erscheinungsjahr = medienObject.getErscheinungsjahr();      //Variable erwartet String
         medientyp = medienObject.getMedium();                       //Variable erwartet int
         kategorie = medienObject.getKategorie();                    //Variable erwartet int
         fsk = medienObject.getFSK();                                //Variable erwartet int
@@ -566,7 +566,7 @@ public class Datenbankoperationen {
                     + "fsk,) "                     
                     + "VALUES (?,?,?,?,?)");
             ps.setString(1, titel);   //Spalte 'titelname' = titelname
-            ps.setDate(2, erscheinungsjahr); //Spalte 'erscheinungsjahr' = erscheinungsjahr
+            ps.setString(2, erscheinungsjahr); //Spalte 'erscheinungsjahr' = erscheinungsjahr
             ps.setInt(3, medientyp);          //Spalte 'medientyp' = medientyp
             ps.setInt(4, kategorie);     //Spalte 'kategorie' = kategorie
             ps.setInt(5, fsk);       //Spalte 'fsk' = fsk            
@@ -600,7 +600,7 @@ public class Datenbankoperationen {
             
             medien.setFILM_ID(rs.getInt("FILM_ID"));
             medien.setMedium(rs.getInt("Medium"));
-            medien.setErscheinungsjahr(rs.getDate("Erscheinungsjahr"));
+            medien.setErscheinungsjahr(rs.getString("Erscheinungsjahr"));
             medien.setTitel(rs.getString("Titel"));
             medien.setKategorie(rs.getInt("Kategorie"));
             medien.setFSK(rs.getInt("FSK"));
@@ -626,7 +626,7 @@ public class Datenbankoperationen {
                 
                 medien.setFILM_ID(rs.getInt("FILM_ID"));
                 medien.setMedium(rs.getInt("Medium"));
-                medien.setErscheinungsjahr(rs.getDate("Erscheinungsjahr"));
+                medien.setErscheinungsjahr(rs.getString("Erscheinungsjahr"));
                 medien.setTitel(rs.getString("Titel"));
                 medien.setKategorie(rs.getInt("Kategorie"));
                 medien.setFSK(rs.getInt("FSK"));
@@ -651,7 +651,7 @@ public class Datenbankoperationen {
     /////////////////////////
     
     //ausleihvorgang anlegen
-    public static void leihenAnlegen(int Film_ID, int Kunden_NR, Date Enddatum) {
+    public static void leihenAnlegen(int Film_ID, int Kunden_NR, String Enddatum) {
         try {
             
             PreparedStatement ps;
@@ -662,7 +662,7 @@ public class Datenbankoperationen {
                     + "VALUES (?,?,?)");
             ps.setInt(1, Film_ID);   //Spalte 'Film_ID' = Film_ID
             ps.setInt(2, Kunden_NR); //Spalte 'Kunden_NR' = Kunden_NR
-            ps.setDate(3, Enddatum);          //Spalte 'Enddatum' = Enddatum         
+            ps.setString(3, Enddatum);          //Spalte 'Enddatum' = Enddatum         
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
@@ -686,8 +686,8 @@ public class Datenbankoperationen {
                 
                 leihen.setFilm_ID(rs.getInt("Film_ID"));
                 leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
-                leihen.setAnfangsdatum(rs.getDate("Anfangsdatum"));
-                leihen.setEnddatum(rs.getDate("Enddatum"));
+                leihen.setAnfangsdatum(rs.getString("Anfangsdatum"));
+                leihen.setEnddatum(rs.getString("Enddatum"));
                 
                                
                 aList.add(leihen);
@@ -715,8 +715,8 @@ public class Datenbankoperationen {
                 
                 leihen.setFilm_ID(rs.getInt("Film_ID"));
                 leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
-                leihen.setAnfangsdatum(rs.getDate("Anfangsdatum"));
-                leihen.setEnddatum(rs.getDate("Enddatum"));
+                leihen.setAnfangsdatum(rs.getString("Anfangsdatum"));
+                leihen.setEnddatum(rs.getString("Enddatum"));
                 
                                
                 aList.add(leihen);

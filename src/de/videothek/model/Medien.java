@@ -15,12 +15,12 @@ public class Medien {
     
     int FILM_ID;
     int Medium;
-    Date Erscheinungsjahr;
+    String Erscheinungsjahr;
     String Titel;
     int Kategorie;
     int FSK;
 
-    public Medien(int FILM_ID, int Medium, Date Erscheinungsjahr, String Titel, int Kategorie, int FSK) {
+    public Medien(int FILM_ID, int Medium, String Erscheinungsjahr, String Titel, int Kategorie, int FSK) {
         this.FILM_ID = FILM_ID;
         this.Medium = Medium;
         this.Erscheinungsjahr = Erscheinungsjahr;
@@ -29,7 +29,7 @@ public class Medien {
         this.FSK = FSK;
     }
 
-    public Medien(int Medium, Date Erscheinungsjahr, String Titel, int Kategorie, int FSK) {
+    public Medien(int Medium, String Erscheinungsjahr, String Titel, int Kategorie, int FSK) {
         this.Medium = Medium;
         this.Erscheinungsjahr = Erscheinungsjahr;
         this.Titel = Titel;
@@ -57,11 +57,11 @@ public class Medien {
         this.Medium = Medium;
     }
 
-    public Date getErscheinungsjahr() {
+    public String getErscheinungsjahr() {
         return Erscheinungsjahr;
     }
 
-    public void setErscheinungsjahr(Date Erscheinungsjahr) {
+    public void setErscheinungsjahr(String Erscheinungsjahr) {
         this.Erscheinungsjahr = Erscheinungsjahr;
     }
 
