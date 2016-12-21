@@ -66,7 +66,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTFAnredeAendern = new javax.swing.JTextField();
         jTFVornameAendern = new javax.swing.JTextField();
         jTFNachnameAendern = new javax.swing.JTextField();
         jTFStrasseAendern = new javax.swing.JTextField();
@@ -76,8 +75,8 @@ public class Videothek extends javax.swing.JFrame {
         jTFOrtAendern = new javax.swing.JTextField();
         jTFGebAendern = new javax.swing.JTextField();
         jBKundeAendern = new javax.swing.JButton();
+        jComboBox4 = new javax.swing.JComboBox<>();
         jPNeuerKunde = new javax.swing.JPanel();
-        jTFAnrede = new javax.swing.JTextField();
         jTFVorname = new javax.swing.JTextField();
         jTFNachname = new javax.swing.JTextField();
         jTFStrasse = new javax.swing.JTextField();
@@ -94,6 +93,8 @@ public class Videothek extends javax.swing.JFrame {
         jLOrt = new javax.swing.JLabel();
         jLGeburtsdatum = new javax.swing.JLabel();
         jBKundeSpeichern = new javax.swing.JButton();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jLabel30 = new javax.swing.JLabel();
         jPKundeLoeschen = new javax.swing.JPanel();
         jLKundennummer = new javax.swing.JLabel();
         jTFKundennummer = new javax.swing.JTextField();
@@ -386,13 +387,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Postleitzahl");
 
-        jTFAnredeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFAnredeAendern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFAnredeAendernActionPerformed(evt);
-            }
-        });
-
         jTFVornameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jTFNachnameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -415,6 +409,8 @@ public class Videothek extends javax.swing.JFrame {
 
         jBKundeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundeAendern.setText("Änderung Speichern");
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Herr", "Frau" }));
 
         javax.swing.GroupLayout jPKundeBearbeitenLayout = new javax.swing.GroupLayout(jPKundeBearbeiten);
         jPKundeBearbeiten.setLayout(jPKundeBearbeitenLayout);
@@ -456,7 +452,7 @@ public class Videothek extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFAnredeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -478,8 +474,8 @@ public class Videothek extends javax.swing.JFrame {
                 .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTFAnredeAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jComboBox4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTFVornameAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
@@ -510,13 +506,6 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
-
-        jTFAnrede.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFAnrede.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFAnredeActionPerformed(evt);
-            }
-        });
 
         jTFVorname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -572,6 +561,17 @@ public class Videothek extends javax.swing.JFrame {
 
         jBKundeSpeichern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundeSpeichern.setText("Kunde speichern");
+        jBKundeSpeichern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBKundeSpeichernActionPerformed(evt);
+            }
+        });
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Herr", "Frau" }));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setText("!!! Datum im Format: YYYY-MM-DD");
+        jLabel30.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPNeuerKundeLayout = new javax.swing.GroupLayout(jPNeuerKunde);
         jPNeuerKunde.setLayout(jPNeuerKundeLayout);
@@ -597,9 +597,11 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTFStrasse)
                     .addComponent(jTFNachname)
                     .addComponent(jTFVorname)
-                    .addComponent(jTFAnrede)
-                    .addComponent(jTFPlz))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTFPlz)
+                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPNeuerKundeLayout.setVerticalGroup(
             jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,8 +612,8 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jLKundennummerAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLAnrede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTFAnrede, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                    .addComponent(jLAnrede, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(jComboBox5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLVorname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -634,11 +636,13 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTFOrt, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTFGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jLGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTFGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                        .addComponent(jLGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jBKundeSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
@@ -879,9 +883,8 @@ public class Videothek extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                        .addComponent(jComboBox3)))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jComboBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(252, Short.MAX_VALUE))
@@ -1118,10 +1121,6 @@ public class Videothek extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTFAnredeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFAnredeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFAnredeActionPerformed
-
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
@@ -1138,10 +1137,6 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
 
-    private void jTFAnredeAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFAnredeAendernActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFAnredeAendernActionPerformed
-
     private void jTFStrasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFStrasseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFStrasseActionPerformed
@@ -1149,6 +1144,12 @@ public class Videothek extends javax.swing.JFrame {
     private void jTFKundennummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFKundennummerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFKundennummerActionPerformed
+
+    private void jBKundeSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKundeSpeichernActionPerformed
+        // TODO add your handling code here:
+        Datenbankoperationen.kundenAnlegen((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText() , jTFGeburtsdatum.getText());
+        
+    }//GEN-LAST:event_jBKundeSpeichernActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1199,6 +1200,8 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLASArtikelNummer;
     private javax.swing.JLabel jLASKundeAnzeigen;
     private javax.swing.JLabel jLASKundenNummer;
@@ -1244,6 +1247,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1269,8 +1273,6 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTextField jTFASArtikelNummer;
     private javax.swing.JTextField jTFASKundenNummer;
     private javax.swing.JTextField jTFAendernKundennummer;
-    private javax.swing.JTextField jTFAnrede;
-    private javax.swing.JTextField jTFAnredeAendern;
     private javax.swing.JTextField jTFGebAendern;
     private javax.swing.JTextField jTFGeburtsdatum;
     private javax.swing.JTextField jTFKundennummer;
