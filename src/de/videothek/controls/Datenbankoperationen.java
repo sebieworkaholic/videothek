@@ -8,6 +8,8 @@ package de.videothek.controls;
 import de.videothek.model.FSK;
 import de.videothek.model.Kategorie;
 import de.videothek.model.Kunden;
+import de.videothek.model.Leihen;
+import de.videothek.model.Medien;
 import de.videothek.model.Medientypen;
 import java.sql.Connection;
 import java.sql.Date;
@@ -283,7 +285,7 @@ public class Datenbankoperationen {
     /////////////////////////
     
     //Methode zum Ausgeben der passenden 'Medien-ID' zum 'Medientyp-Bezeichnung'
-    public static int medientypBezeichnungToMedienID(String medientyp_bezeichnung) {
+    public static int medientypBezeichnungToMedientypID(String medientyp_bezeichnung) {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -303,7 +305,7 @@ public class Datenbankoperationen {
     }
 
     //Methode zum Ausgeben des passenden 'Medientyp-Bezeichnung' zur 'Medien_ID'
-    public static String medienIDToMedientypenBezeichnung(int medientyp_id) {
+    public static String medientypIDToMedientypenBezeichnung(int medientyp_id) {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -532,5 +534,212 @@ public class Datenbankoperationen {
         }
     }
     
-   
+    
+    /////////////////////////
+    ////     Medien      ////
+    /////////////////////////
+    
+    //Methode zum anlegen einer Media im Datenbanksystem
+    public static void medienAnlegenInDB(Medien medienObject) {
+
+        //Deklaration der benötigten Variablen
+        String titel;
+        Date erscheinungsjahr;
+        int medientyp, kategorie, fsk;
+
+        titel = medienObject.getTitel();                            //Variable erwartet String
+        erscheinungsjahr = medienObject.getErscheinungsjahr();      //Variable erwartet Date
+        medientyp = medienObject.getMedium();                       //Variable erwartet int
+        kategorie = medienObject.getKategorie();                    //Variable erwartet int
+        fsk = medienObject.getFSK();                                //Variable erwartet int
+        
+
+        //Eintragung des 'medien_object' als Medien in die Datenbank
+        try {
+            
+            PreparedStatement ps;
+            ps = connection_object.prepareStatement("INSERT INTO medien " //Einfüge-Befehl in die Tabelle 'medien'
+                    + "(titel, "
+                    + "erscheinungsjahr, "
+                    + "medientyp, "
+                    + "kategorie, "
+                    + "fsk,) "                     
+                    + "VALUES (?,?,?,?,?)");
+            ps.setString(1, titel);   //Spalte 'titelname' = titelname
+            ps.setDate(2, erscheinungsjahr); //Spalte 'erscheinungsjahr' = erscheinungsjahr
+            ps.setInt(3, medientyp);          //Spalte 'medientyp' = medientyp
+            ps.setInt(4, kategorie);     //Spalte 'kategorie' = kategorie
+            ps.setInt(5, fsk);       //Spalte 'fsk' = fsk            
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAnlegenInDB)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    //Medien löschen
+    public static void medienLöschen(int FILM_ID) {
+        try {
+            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM medien WHERE FILM_ID = ?");
+            ps.setInt(1, FILM_ID);
+            ps.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(medienLöschen)");
+        }        
+    }
+    
+    //Medien auslesen
+    public static Medien medienAuslesen(int FILM_ID) {
+
+        ResultSet rs;
+        Medien medien = new Medien();
+        try {
+            PreparedStatement ps = connection_object.prepareStatement("SELECT * FROM medien WHERE FILM_ID = ?");
+            ps.setInt(1, FILM_ID);
+            rs = ps.executeQuery();
+            
+            medien.setFILM_ID(rs.getInt("FILM_ID"));
+            medien.setMedium(rs.getInt("Medium"));
+            medien.setErscheinungsjahr(rs.getDate("Erscheinungsjahr"));
+            medien.setTitel(rs.getString("Titel"));
+            medien.setKategorie(rs.getInt("Kategorie"));
+            medien.setFSK(rs.getInt("FSK"));
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } 
+        return medien;
+    }
+    
+    //Methode zum auslesen Medien Medien im Datenbanksystem
+    public static ArrayList<Medien> getMedienAlle() {
+
+        ArrayList<Medien> aList = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        Medien medien = new Medien();
+        
+        try {
+            ps = connection_object.prepareStatement("SELECT * FROM medien");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                medien.setFILM_ID(rs.getInt("FILM_ID"));
+                medien.setMedium(rs.getInt("Medium"));
+                medien.setErscheinungsjahr(rs.getDate("Erscheinungsjahr"));
+                medien.setTitel(rs.getString("Titel"));
+                medien.setKategorie(rs.getInt("Kategorie"));
+                medien.setFSK(rs.getInt("FSK"));
+                               
+                aList.add(medien);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getMedienAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } /*catch (IOException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        return aList;
+    }
+    
+    public static void medienBearbeiten(int FILM_ID) {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.      
+    }
+    
+    /////////////////////////
+    ////     Leihen      ////
+    /////////////////////////
+    
+    //ausleihvorgang anlegen
+    public static void leihenAnlegen(int Film_ID, int Kunden_NR, Date Enddatum) {
+        try {
+            
+            PreparedStatement ps;
+            ps = connection_object.prepareStatement("INSERT INTO leihen " //Einfüge-Befehl in die Tabelle 'leihen'
+                    + "(Film_ID, "
+                    + "Kunden_NR, "
+                    + "Enddatum, )"                                         
+                    + "VALUES (?,?,?)");
+            ps.setInt(1, Film_ID);   //Spalte 'Film_ID' = Film_ID
+            ps.setInt(2, Kunden_NR); //Spalte 'Kunden_NR' = Kunden_NR
+            ps.setDate(3, Enddatum);          //Spalte 'Enddatum' = Enddatum         
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(leihenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
+    //alle Ausleihvorgänge eines Kunden ausgeben
+    public static ArrayList<Leihen> getKundenLeihenAlle(int Kunden_NR) {
+        ArrayList<Leihen> aList = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        Leihen leihen = new Leihen();
+        
+        try {
+            ps = connection_object.prepareStatement("SELECT * FROM leihen WHERE Kunden_NR = ?");
+            ps.setInt(1, Kunden_NR);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                leihen.setFilm_ID(rs.getInt("Film_ID"));
+                leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
+                leihen.setAnfangsdatum(rs.getDate("Anfangsdatum"));
+                leihen.setEnddatum(rs.getDate("Enddatum"));
+                
+                               
+                aList.add(leihen);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getKundenLeihenAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } /*catch (IOException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        return aList;
+    }
+    
+    //alle Ausleihvorgänge eines Medium ausgeben
+    public static ArrayList<Leihen> getMediumLeihenAlle(int Film_ID) {
+        ArrayList<Leihen> aList = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        Leihen leihen = new Leihen();
+        
+        try {
+            ps = connection_object.prepareStatement("SELECT * FROM leihen WHERE FILM_ID = ?");
+            ps.setInt(1, Film_ID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                leihen.setFilm_ID(rs.getInt("Film_ID"));
+                leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
+                leihen.setAnfangsdatum(rs.getDate("Anfangsdatum"));
+                leihen.setEnddatum(rs.getDate("Enddatum"));
+                
+                               
+                aList.add(leihen);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getMediumLeihenAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } /*catch (IOException ex) {
+            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        return aList;
+    }
+    
+    //Ausleihvorgänge löschen
+    public static void ausleihvorgängeLoeschen(int Kunden_NR, int Film_ID) {
+        PreparedStatement ps;
+        try {
+            ps = connection_object.prepareStatement("DELETE FROM leihen WHERE Film_ID=? AND Kunden_NR=?");
+            ps.setInt(1, Film_ID);
+            ps.setInt(2, Kunden_NR);
+            ps.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(ausleihvorgängeLoeschen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
 }
