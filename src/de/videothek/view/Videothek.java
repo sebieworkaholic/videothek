@@ -114,11 +114,17 @@ public class Videothek extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
+        jTextField17 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
+        jTextField18 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -249,7 +255,6 @@ public class Videothek extends javax.swing.JFrame {
         jLKundeOffeneAusleihenAuto.setText("<auto Offene Ausleihen");
 
         jTKundennummerOffeneAusleihen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTKundennummerOffeneAusleihen.setText("Kundennummer");
 
         jBKundennummerOffeneAusleihe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundennummerOffeneAusleihe.setText("Suchen");
@@ -307,10 +312,8 @@ public class Videothek extends javax.swing.JFrame {
         jLabel11.setText("Artikel-Nr.:");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setText("Kundennummer");
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField2.setText("Artikel");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Rückgabe Bestätigen");
@@ -357,7 +360,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel2.setText("Kundennummer");
 
         jTFAendernKundennummer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFAendernKundennummer.setText("Kundennummer");
 
         jBAendernKdrSuchen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBAendernKdrSuchen.setText("Suchen");
@@ -385,19 +387,19 @@ public class Videothek extends javax.swing.JFrame {
         jLabel8.setText("Postleitzahl");
 
         jTFAnredeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFAnredeAendern.setText("Anrede");
+        jTFAnredeAendern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFAnredeAendernActionPerformed(evt);
+            }
+        });
 
         jTFVornameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFVornameAendern.setText("Vorname");
 
         jTFNachnameAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFNachnameAendern.setText("Nachname");
 
         jTFStrasseAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFStrasseAendern.setText("Straße");
 
         jTFPlzAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFPlzAendern.setText("PLZ");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -408,10 +410,8 @@ public class Videothek extends javax.swing.JFrame {
         jLabel10.setText("Geburtsdatum");
 
         jTFOrtAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFOrtAendern.setText("Ort");
 
         jTFGebAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFGebAendern.setText("Geburtsdatum");
 
         jBKundeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundeAendern.setText("Änderung Speichern");
@@ -512,7 +512,6 @@ public class Videothek extends javax.swing.JFrame {
         jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
 
         jTFAnrede.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFAnrede.setText("Anrede");
         jTFAnrede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFAnredeActionPerformed(evt);
@@ -520,13 +519,15 @@ public class Videothek extends javax.swing.JFrame {
         });
 
         jTFVorname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFVorname.setText("Vorname");
 
         jTFNachname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFNachname.setText("Nachname");
 
         jTFStrasse.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFStrasse.setText("Straße");
+        jTFStrasse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFStrasseActionPerformed(evt);
+            }
+        });
 
         jLKundennummerAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLKundennummerAuto.setText("<autoKDNR>");
@@ -556,13 +557,10 @@ public class Videothek extends javax.swing.JFrame {
         jLPlz.setText("Postleitzahl");
 
         jTFPlz.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFPlz.setText("Postleitzahl");
 
         jTFOrt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFOrt.setText("Ort");
 
         jTFGeburtsdatum.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFGeburtsdatum.setText("jTextField7");
 
         jLOrt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLOrt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -650,7 +648,11 @@ public class Videothek extends javax.swing.JFrame {
         jLKundennummer.setText("Kundennummer");
 
         jTFKundennummer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTFKundennummer.setText("Kundennummer");
+        jTFKundennummer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFKundennummerActionPerformed(evt);
+            }
+        });
 
         jBSuchen.setBackground(new java.awt.Color(0, 153, 255));
         jBSuchen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -765,84 +767,121 @@ public class Videothek extends javax.swing.JFrame {
         jLabel17.setText("FSK");
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField4.setText("Bezeichnung");
 
         jTextField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField3.setText("Titel");
-
-        jTextField5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField5.setText("Medium");
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField6.setText("Erscheinungsjahr");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
             }
         });
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField7.setText("Kategorie");
-
-        jTextField8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField8.setText("FSK");
-
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Medium Erstellen");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel28.setText("  Neues Medium-Format");
+
+        jTextField17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField17ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setText("Erstellen");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel29.setText("  Neue Kategorie");
+
+        jTextField18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField18ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton7.setText("Erstellen");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 254, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8))))
-                .addContainerGap(281, Short.MAX_VALUE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBox1, 0, 304, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(203, 203, 203)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTextField17)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField18)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField17)
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jComboBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextField18)
+                    .addComponent(jComboBox2)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                        .addComponent(jComboBox3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(252, Short.MAX_VALUE))
@@ -858,7 +897,6 @@ public class Videothek extends javax.swing.JFrame {
         jButton3.setText("Suchen");
 
         jTextField9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField9.setText("Artikel-Nr.:");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -885,22 +923,21 @@ public class Videothek extends javax.swing.JFrame {
         jLabel24.setText("FSK");
 
         jTextField10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField10.setText("Bezeichnung");
+        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField10ActionPerformed(evt);
+            }
+        });
 
         jTextField11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField11.setText("Titel");
 
         jTextField12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField12.setText("Medium");
 
         jTextField13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField13.setText("Erscheinungsjahr");
 
         jTextField14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField14.setText("Kategorie");
 
         jTextField15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField15.setText("FSK");
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Änderung Speichern");
@@ -977,7 +1014,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel25.setText("Artikel-Nr.:");
 
         jTextField16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField16.setText("Artikel-Nr.:");
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("Löschen");
@@ -1090,6 +1126,30 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField17ActionPerformed
+
+    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField18ActionPerformed
+
+    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField10ActionPerformed
+
+    private void jTFAnredeAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFAnredeAendernActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFAnredeAendernActionPerformed
+
+    private void jTFStrasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFStrasseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFStrasseActionPerformed
+
+    private void jTFKundennummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFKundennummerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFKundennummerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1134,6 +1194,11 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLASArtikelNummer;
     private javax.swing.JLabel jLASKundeAnzeigen;
     private javax.swing.JLabel jLASKundenNummer;
@@ -1176,6 +1241,8 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1230,13 +1297,12 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
