@@ -15,11 +15,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -475,7 +478,10 @@ public class Datenbankoperationen {
         verbindenZurDB();
         try {
             
-            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("INSERT INTO t_kunden (Anrede, Vorname, Nachname, Strasse, PLZ, Ort, Geburtsdatum) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement(
+                    "INSERT INTO `as-video`.`t_kunden` (`Kunden_Nr`, `Anrede`, `Vorname`, "
+                    + "`Nachname`, `Strasse`, `PLZ`, `Ort`, `Geburtsdatum`) VALUES "
+                    + "(NULL, ?, ?, ?, ?, ?, ?, ?);");
             ps.setString(1, anrede);   
             ps.setString(2, vorname);
             ps.setString(3, nachname);
@@ -491,6 +497,43 @@ public class Datenbankoperationen {
         }   
         verbindungSchließenZurDB();
     }
+    //ID von Angelegten Kunden ermitteln
+    public static String kundenAnlegenIDRuckgabe(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, String geburtsdatum){
+        String kdnr = "";
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;
+        String abfrage = "SELECT t_kunden.Kunden_Nr FROM t_kunden WHERE "
+                    +"Anrede='"+anrede+"' AND "
+                    +"Vorname='"+vorname+"' AND "
+                    +"Nachname='"+nachname+"' AND "
+                    +"Strasse='"+strasse+"' AND "
+                    +"PLZ='"+plz+"' AND "
+                    +"Ort='"+wohnort+"' AND "
+                    +"Geburtsdatum='"+geburtsdatum+"';";
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(abfrage);
+
+            while (rs.next()) {
+                kdnr = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL Error", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        return kdnr;
+    }
     
     //Kunden löschen
     public static void kundenLöschen(String kundenNr){
@@ -505,75 +548,74 @@ public class Datenbankoperationen {
         verbindungSchließenZurDB();
     }
     
-    //Kunden auslesen
+    //Kunden auslesen FIXED
     public static Kunden kundeAuslesen(String kundenNr) {
-        verbindenZurDB();
-
-        ResultSet rs;
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;        
         Kunden kunden = new Kunden();
         try {
-            PreparedStatement ps = connection_object.prepareStatement("SELECT * FROM t_kundnen WHERE Kunden_Nr = ?");
-            ps.setString(1, kundenNr);
-            rs = ps.executeQuery();
-            int kundenID = rs.getInt("Kunden_Nr");
-            String anrede = rs.getString("Anrede");
-            String vorname = rs.getString("Vorname");
-            String nachname = rs.getString("Nachname");
-            String strasse = rs.getString("Strasse");
-            String plz = rs.getString("PLZ");
-            String wohnort = rs.getString("Ort");
-            String geburtsdatum = rs.getString("Geburtsdatum");
-            
-            kunden.setKundenID(kundenID);
-            kunden.setAnrede(anrede);
-            kunden.setVorname(vorname);
-            kunden.setNachname(nachname);
-            kunden.setStrasse(strasse);
-            kunden.setPlz(plz);
-            kunden.setWohnort(wohnort);
-            kunden.setGeburtsdatum(geburtsdatum);
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM t_kunden WHERE Kunden_Nr = "+kundenNr+"");
+            while(rs.next()){                
+                kunden.setKundenID(rs.getInt("Kunden_Nr"));
+                kunden.setAnrede(rs.getString("Anrede"));
+                kunden.setVorname(rs.getString("Vorname"));
+                kunden.setNachname(rs.getString("Nachname"));
+                kunden.setStrasse(rs.getString("Strasse"));
+                kunden.setPlz(rs.getString("PLZ"));
+                kunden.setWohnort(rs.getString("Ort"));
+                kunden.setGeburtsdatum(rs.getString("Geburtsdatum"));
+            }
+            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundeAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } 
-        verbindungSchließenZurDB();
+            JOptionPane.showMessageDialog(null, "Kundennummer existiert nicht", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
         return kunden;
     }
     
-    //Kunden bearbeiten
+    //Kunden bearbeiten FIXED ALLES!!!!!!!!!
     public static void kundenAendern(int Kunden_Nr, Kunden k) {
-        verbindenZurDB();
-        PreparedStatement statement = null;
-        String sqlString = "UPDATE kategorie SET Anrede=?, Vorname=?, Nachname=?, Strasse=?, PLZ=?, Ort=?, Geburtstag=? WHERE Kunden_Nr=?";
-        
-        //Update durchführen
+        Connection con = null;
+        String update = "UPDATE t_kunden SET Anrede=?, Vorname=?, Nachname=?, Strasse=?, PLZ=?, Ort=?, Geburtsdatum=? WHERE Kunden_Nr=?";
         try {
-
-            statement = connection_object.prepareStatement(sqlString);
-            statement.setString(1, k.getAnrede());
-            statement.setString(2, k.getVorname());
-            statement.setString(3, k.getNachname());
-            statement.setString(4, k.getStrasse());
-            statement.setString(5, k.getPlz());
-            statement.setString(6, k.getWohnort());
-            statement.setString(7, k.getGeburtsdatum());
-            statement.setInt(8, k.getKundenID());
-            statement.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAendern)", "Fehler", JOptionPane.ERROR_MESSAGE);
+            con = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = con.prepareStatement(update);
+            
+            ps.setString(1, k.getAnrede());
+            ps.setString(2, k.getVorname());
+            ps.setString(3, k.getNachname());
+            ps.setString(4, k.getStrasse());
+            ps.setInt(5, Integer.parseInt(k.getPlz()));
+            ps.setString(6, k.getWohnort());
+            ps.setString(7, k.getGeburtsdatum());
+            ps.setInt(8, k.getKundenID()); 
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "SQL Error", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
         } finally {
-            try {
-                statement.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAendern)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            }          
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
-        verbindungSchließenZurDB();
     }
-    
-    
     /////////////////////////
     ////     Medien      ////
     /////////////////////////
@@ -798,4 +840,55 @@ public class Datenbankoperationen {
         verbindungSchließenZurDB();
     }
     
-}
+    //Alle Tabelle aus Abfrage erzeugen
+    public static DefaultTableModel buildTable(String abfrage){
+        DefaultTableModel dtm = null;
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;
+        ResultSetMetaData metadata;
+        
+        try {          
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(abfrage);
+            metadata = rs.getMetaData();
+           
+            rs.last();
+            int rowcount = rs.getRow();
+            rs.beforeFirst();
+            int columncount = metadata.getColumnCount();
+           
+            String[] columnnames = new String[columncount];
+           
+            for(int i=0;i<columncount;i++){
+                columnnames[i] = metadata.getColumnLabel(i+1);
+            }
+           
+            int k = 0;
+            String[][] data = new String[rowcount][columncount];
+            while(rs.next()){
+               
+                for(int i=0;i<data[0].length;i++){
+                    String s =  rs.getString(i+1);
+                    data[k][i] = s;
+                }
+                k++;
+            }
+            dtm = new DefaultTableModel(data,columnnames);
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            dtm = new DefaultTableModel(new String[][]{{e.getMessage()},{}},new String[]{"Error"});
+        }finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        return dtm;
+    }
+}   
