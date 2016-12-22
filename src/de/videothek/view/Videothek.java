@@ -361,6 +361,16 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPKundenMenu.setBackground(new java.awt.Color(204, 204, 204));
         jTPKundenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTPKundenMenu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTPKundenMenuFocusGained(evt);
+            }
+        });
+        jTPKundenMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTPKundenMenuMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -763,6 +773,12 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
+
+        jScrollPane2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jScrollPane2FocusGained(evt);
+            }
+        });
 
         DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM t_kunden ORDER BY Kunden_Nr ASC");
         jTable1.setModel(dtm);
@@ -1253,6 +1269,20 @@ public class Videothek extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Kein erfolgreicher Datensatz");
         }
     }//GEN-LAST:event_jBKundeAendernActionPerformed
+
+    private void jScrollPane2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jScrollPane2FocusGained
+
+    private void jTPKundenMenuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPKundenMenuFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTPKundenMenuFocusGained
+
+    private void jTPKundenMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPKundenMenuMouseClicked
+        // TODO add your handling code here:        
+    }//GEN-LAST:event_jTPKundenMenuMouseClicked
 
     /**
      * @param args the command line arguments
