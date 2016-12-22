@@ -5,7 +5,10 @@
  */
 package de.videothek.view;
 import  de.videothek.controls.*;
-import java.awt.event.ActionListener;
+import de.videothek.model.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -89,11 +92,13 @@ public class Videothek extends javax.swing.JFrame {
         jLPlz = new javax.swing.JLabel();
         jTFPlz = new javax.swing.JTextField();
         jTFOrt = new javax.swing.JTextField();
-        jTFGeburtsdatum = new javax.swing.JTextField();
         jLOrt = new javax.swing.JLabel();
         jLGeburtsdatum = new javax.swing.JLabel();
         jBKundeSpeichern = new javax.swing.JButton();
         jComboBox5 = new javax.swing.JComboBox<>();
+        jTAG = new javax.swing.JTextField();
+        jMonat = new javax.swing.JTextField();
+        jJahr = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jPKundeLoeschen = new javax.swing.JPanel();
         jLKundennummer = new javax.swing.JLabel();
@@ -104,6 +109,8 @@ public class Videothek extends javax.swing.JFrame {
         jLAdresseAuto = new javax.swing.JLabel();
         jLAusleiheStatusAuto = new javax.swing.JLabel();
         jBLoeschen = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPMedien = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -154,7 +161,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
 
@@ -200,7 +206,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTFASArtikelNummer))
                 .addGap(73, 73, 73)
                 .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                    .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -236,7 +242,7 @@ public class Videothek extends javax.swing.JFrame {
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
+                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPOffeneAusleihenGesamtLayout.setVerticalGroup(
@@ -274,7 +280,7 @@ public class Videothek extends javax.swing.JFrame {
                         .addComponent(jTKundennummerOffeneAusleihen, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addContainerGap(370, Short.MAX_VALUE))
         );
         jPOffeneAusleihenKundeLayout.setVerticalGroup(
             jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +339,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                     .addComponent(jTextField2))
-                .addContainerGap(529, Short.MAX_VALUE))
+                .addContainerGap(539, Short.MAX_VALUE))
         );
         jPRueckgabeLayout.setVerticalGroup(
             jPRueckgabeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,6 +370,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jBAendernKdrSuchen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBAendernKdrSuchen.setText("Suchen");
+        jBAendernKdrSuchen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAendernKdrSuchenActionPerformed(evt);
+            }
+        });
 
         jLAenderAuto.setText("<auto Text");
 
@@ -409,6 +420,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jBKundeAendern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundeAendern.setText("Änderung Speichern");
+        jBKundeAendern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBKundeAendernActionPerformed(evt);
+            }
+        });
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Herr", "Frau" }));
 
@@ -419,48 +435,47 @@ public class Videothek extends javax.swing.JFrame {
             .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLAenderAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                        .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFAendernKundennummer, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAendernKdrSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                        .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFAendernKundennummer, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTFOrtAendern))
+                            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBAendernKdrSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFOrtAendern))
-                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFPlzAendern))
-                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFStrasseAendern))
-                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFNachnameAendern))
-                                .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFVornameAendern))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTFGebAendern)
-                                        .addComponent(jBKundeAendern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(318, 318, 318))
+                                .addComponent(jTFPlzAendern))
+                            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFStrasseAendern))
+                            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFNachnameAendern))
+                            .addGroup(jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFVornameAendern))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPKundeBearbeitenLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFGebAendern)
+                                    .addComponent(jBKundeAendern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
         jPKundeBearbeitenLayout.setVerticalGroup(
             jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,9 +485,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jBAendernKdrSuchen, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTFAendernKundennummer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(57, 57, 57)
                 .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jComboBox4))
@@ -501,8 +514,10 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTFGebAendern, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBKundeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBKundeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
@@ -549,8 +564,6 @@ public class Videothek extends javax.swing.JFrame {
 
         jTFOrt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jTFGeburtsdatum.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
         jLOrt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLOrt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLOrt.setText("Ort");
@@ -561,6 +574,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jBKundeSpeichern.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundeSpeichern.setText("Kunde speichern");
+        jBKundeSpeichern.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jBKundeSpeichernStateChanged(evt);
+            }
+        });
         jBKundeSpeichern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBKundeSpeichernActionPerformed(evt);
@@ -569,9 +587,13 @@ public class Videothek extends javax.swing.JFrame {
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Herr", "Frau" }));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel30.setText("!!! Datum im Format: YYYY-MM-DD");
-        jLabel30.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jTAG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTAGActionPerformed(evt);
+            }
+        });
+
+        jLabel30.setText("       TAG                      MONAT                      JAHR");
 
         javax.swing.GroupLayout jPNeuerKundeLayout = new javax.swing.GroupLayout(jPNeuerKunde);
         jPNeuerKunde.setLayout(jPNeuerKundeLayout);
@@ -590,18 +612,22 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jLKundennummerText, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                     .addComponent(jBKundeSpeichern, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(jTFGeburtsdatum)
                     .addComponent(jTFOrt)
                     .addComponent(jLKundennummerAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                     .addComponent(jTFStrasse)
                     .addComponent(jTFNachname)
                     .addComponent(jTFVorname)
                     .addComponent(jTFPlz)
-                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPNeuerKundeLayout.createSequentialGroup()
+                        .addComponent(jTAG, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jMonat, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jJahr)))
+                .addContainerGap(389, Short.MAX_VALUE))
         );
         jPNeuerKundeLayout.setVerticalGroup(
             jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -636,12 +662,15 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTFOrt, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPNeuerKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jTFGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jLGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLGeburtsdatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTAG, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(jMonat)
+                    .addComponent(jJahr))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBKundeSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
@@ -660,6 +689,11 @@ public class Videothek extends javax.swing.JFrame {
         jBSuchen.setBackground(new java.awt.Color(0, 153, 255));
         jBSuchen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBSuchen.setText("Suchen");
+        jBSuchen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSuchenActionPerformed(evt);
+            }
+        });
 
         jLVornameAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLVornameAuto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -705,7 +739,7 @@ public class Videothek extends javax.swing.JFrame {
                                         .addComponent(jLNachnameAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBSuchen, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
         jPKundeLoeschenLayout.setVerticalGroup(
             jPKundeLoeschenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,6 +763,12 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
+
+        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM t_kunden ORDER BY Kunden_Nr ASC");
+        jTable1.setModel(dtm);
+        jScrollPane2.setViewportView(jTable1);
+
+        jTPKundenMenu.addTab("Alle Kunden", jScrollPane2);
 
         javax.swing.GroupLayout jPKundenLayout = new javax.swing.GroupLayout(jPKunden);
         jPKunden.setLayout(jPKundenLayout);
@@ -823,7 +863,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 254, Short.MAX_VALUE)
+                        .addGap(0, 264, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -970,7 +1010,7 @@ public class Videothek extends javax.swing.JFrame {
                             .addComponent(jTextField14)
                             .addComponent(jTextField15)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 343, Short.MAX_VALUE))
+                .addGap(0, 353, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1041,7 +1081,7 @@ public class Videothek extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(357, Short.MAX_VALUE))
+                .addContainerGap(367, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1136,19 +1176,83 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
 
-    private void jTFStrasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFStrasseActionPerformed
+    private void jBSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSuchenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFStrasseActionPerformed
+
+        Kunden kunde = Datenbankoperationen.kundeAuslesen(jTFKundennummer.getText());
+    }//GEN-LAST:event_jBSuchenActionPerformed
 
     private void jTFKundennummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFKundennummerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFKundennummerActionPerformed
 
+    private void jTAGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTAGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTAGActionPerformed
+
     private void jBKundeSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKundeSpeichernActionPerformed
         // TODO add your handling code here:
-        Datenbankoperationen.kundenAnlegen((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText() , jTFGeburtsdatum.getText());
-        
+        System.out.println(Dummy.checkPLZ(jTFPlz.getText()));
+        System.out.println(Dummy.checkDatum(jTAG.getText(), jMonat.getText(), jJahr.getText()));
+        if(((Dummy.checkPLZ(jTFPlz.getText())) == true)&&((Dummy.checkDatum(jTAG.getText(), jMonat.getText(), jJahr.getText()))==true)){
+            Datenbankoperationen.kundenAnlegen((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText(), Dummy.datumZusammensetzen(jTAG.getText(), jMonat.getText(), jJahr.getText()));
+            jLKundennummerAuto.setText(Datenbankoperationen.kundenAnlegenIDRuckgabe((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText(),Dummy.datumZusammensetzen(jTAG.getText(), jMonat.getText(), jJahr.getText())));
+            JOptionPane.showMessageDialog(null, "Neue Kundennummer: "+jLKundennummerAuto.getText());
+        }
     }//GEN-LAST:event_jBKundeSpeichernActionPerformed
+
+    private void jBKundeSpeichernStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jBKundeSpeichernStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBKundeSpeichernStateChanged
+
+    private void jTFStrasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFStrasseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFStrasseActionPerformed
+
+    private void jBAendernKdrSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAendernKdrSuchenActionPerformed
+        // TODO add your handling code here:
+        if(Dummy.checkInt(jTFAendernKundennummer.getText()) == true){
+            jLAenderAuto.setText("Loading...");            
+           Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText());            
+            if(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()) != null){
+                jTFVornameAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getVorname());
+                jTFNachnameAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getNachname());
+                jTFStrasseAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getStrasse());
+                jTFPlzAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getPlz());
+                jTFOrtAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getWohnort());
+                jTFGebAendern.setText(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getGeburtsdatum());                 
+                jLAenderAuto.setText("Datensatz erfolgreich geladen"); 
+                if(Datenbankoperationen.kundeAuslesen(jTFAendernKundennummer.getText()).getAnrede().equals(jComboBox4.getSelectedItem())){                    
+                }else{
+                    jComboBox4.setSelectedIndex(1);
+                }
+            }
+            else{
+                jLAenderAuto.setText("Keine Daten vorhanden");
+            }
+        }else{
+            jLAenderAuto.setText("Exception!");
+        }  
+    }//GEN-LAST:event_jBAendernKdrSuchenActionPerformed
+
+    private void jBKundeAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKundeAendernActionPerformed
+        // TODO add your handling code here:
+        if(jLAenderAuto.getText().equals("Datensatz erfolgreich geladen")&&(Dummy.checkPLZ(jTFPlzAendern.getText())==true)){
+            Kunden kunde = new Kunden();
+            kunde.setKundenID(Integer.parseInt(jTFAendernKundennummer.getText()));
+            kunde.setAnrede((String)jComboBox4.getSelectedItem());
+            kunde.setVorname(jTFVornameAendern.getText());
+            kunde.setNachname(jTFNachnameAendern.getText());
+            kunde.setStrasse(jTFStrasseAendern.getText());
+            kunde.setPlz(jTFPlzAendern.getText());
+            kunde.setWohnort(jTFOrtAendern.getText());
+            kunde.setGeburtsdatum(jTFGebAendern.getText());
+            //In DB speichern
+            Datenbankoperationen.kundenAendern(kunde.getKundenID(), kunde);
+        }else{
+            JOptionPane.showMessageDialog(null, "Kein erfolgreicher Datensatz");
+        }
+    }//GEN-LAST:event_jBKundeAendernActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1201,6 +1305,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JTextField jJahr;
     private javax.swing.JLabel jLASArtikelNummer;
     private javax.swing.JLabel jLASKundeAnzeigen;
     private javax.swing.JLabel jLASKundenNummer;
@@ -1253,6 +1358,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jMonat;
     private javax.swing.JPanel jPAusleiheStarten;
     private javax.swing.JPanel jPAusleihen;
     private javax.swing.JPanel jPFooter;
@@ -1268,12 +1374,13 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTAASKundeAllAusleihen;
+    private javax.swing.JTextField jTAG;
     private javax.swing.JTextField jTFASArtikelNummer;
     private javax.swing.JTextField jTFASKundenNummer;
     private javax.swing.JTextField jTFAendernKundennummer;
     private javax.swing.JTextField jTFGebAendern;
-    private javax.swing.JTextField jTFGeburtsdatum;
     private javax.swing.JTextField jTFKundennummer;
     private javax.swing.JTextField jTFNachname;
     private javax.swing.JTextField jTFNachnameAendern;
@@ -1290,6 +1397,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTPHauptmenue;
     private javax.swing.JTabbedPane jTPKundenMenu;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
