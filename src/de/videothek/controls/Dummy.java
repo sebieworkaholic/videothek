@@ -44,7 +44,6 @@ public class Dummy {
     }
     public static String datumZusammensetzen(String tag, String monat, String jahr){
         String datum=""+jahr+"-"+monat+"-"+tag+"";
-        System.out.println(datum);
         return datum;
     }
     public static boolean checkInt(String eingabe){

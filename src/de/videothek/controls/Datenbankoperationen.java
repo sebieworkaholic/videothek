@@ -19,9 +19,13 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -535,19 +539,33 @@ public class Datenbankoperationen {
         return kdnr;
     }
     
-    //Kunden löschen
+    //Kunde löschen
     public static void kundenLöschen(String kundenNr){
-        verbindenZurDB();
+        Connection con = null;
+        PreparedStatement ps;
+        boolean check = false;
         try {
-            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM t_kunden WHERE Kunden_Nr = ?");
+            con = DriverManager.getConnection(url, user, password);
+            ps = con.prepareStatement("DELETE FROM t_kunden WHERE Kunden_Nr = ?");
             ps.setString(1, kundenNr);
             ps.execute();
+            ps.close();
+            check = true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(kundenLöschen)");
+            JOptionPane.showMessageDialog(null, "Error");
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
         }
-        verbindungSchließenZurDB();
-    }
-    
+        if(check == true){
+            JOptionPane.showMessageDialog(null, "Kunde: "+kundenNr+" gelöscht.");
+        }
+    }    
     //Kunden auslesen FIXED
     public static Kunden kundeAuslesen(String kundenNr) {
         Connection con = null;
@@ -603,6 +621,7 @@ public class Datenbankoperationen {
             
             ps.executeUpdate();
             ps.close();
+            JOptionPane.showMessageDialog(null, "Kunde: "+k.getKundenID()+" geändert.");
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "SQL Error", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
@@ -890,5 +909,76 @@ public class Datenbankoperationen {
             }
         }
         return dtm;
+    }    
+    //Check Kundennummer vorhanden
+    public static Boolean CheckKundennummern(String kundenNr) {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        boolean check = false;
+        List<String> liste = new ArrayList<String>();
+        int i = 0;
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT Kunden_Nr FROM t_kunden");
+            while(rs.next()){ 
+                liste.add(rs.getString(1));
+                i++;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Keine Kunden", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
+        if(i > 0){
+            for(int a = 0; a < liste.size() ; a++){
+                if(liste.get(a).equals(kundenNr) == true){
+                    check = true;
+                    break;
+                }
+                else{
+                    continue;
+                }
+            }
+        }        
+        return check;
+    }
+    //Check offene Ausleihe für Kundennummer
+    public static Boolean CheckOffeneAusleihe(String kundenNr) {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        boolean check = false;        
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM leihen WHERE Kunden_NR = "+kundenNr+" and Enddatum = null ");
+            while(rs.next()){ 
+                check = true;
+                break;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Keine Ausleihe vorhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }            
+        return check;
     }
 }   

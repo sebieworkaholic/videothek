@@ -6,8 +6,13 @@
 package de.videothek.view;
 import  de.videothek.controls.*;
 import de.videothek.model.*;
+import java.util.EventListener;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,8 +26,9 @@ public class Videothek extends javax.swing.JFrame {
      */
     public Videothek() {
         initComponents();
-    }
-
+    }    
+    //Globale Boolean für Lösch-Button
+    boolean checkAusleihe = true;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -723,6 +729,16 @@ public class Videothek extends javax.swing.JFrame {
         jBLoeschen.setBackground(new java.awt.Color(255, 0, 0));
         jBLoeschen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBLoeschen.setText("Löschen");
+        jBLoeschen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jBLoeschenItemStateChanged(evt);
+            }
+        });
+        jBLoeschen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLoeschenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPKundeLoeschenLayout = new javax.swing.GroupLayout(jPKundeLoeschen);
         jPKundeLoeschen.setLayout(jPKundeLoeschenLayout);
@@ -1194,8 +1210,30 @@ public class Videothek extends javax.swing.JFrame {
 
     private void jBSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSuchenActionPerformed
         // TODO add your handling code here:
-
-        Kunden kunde = Datenbankoperationen.kundeAuslesen(jTFKundennummer.getText());
+        if((Dummy.checkInt(jTFKundennummer.getText()) == true)&&(Datenbankoperationen.CheckKundennummern(jTFKundennummer.getText())==true)){
+            Kunden kunde = Datenbankoperationen.kundeAuslesen(jTFKundennummer.getText());
+            jLVornameAuto.setText(kunde.getVorname());
+            jLNachnameAuto.setText(kunde.getNachname());
+            jLAdresseAuto.setText(kunde.getStrasse()+", "+kunde.getPlz()+" "+kunde.getWohnort());
+            
+            if(Datenbankoperationen.CheckOffeneAusleihe(jTFKundennummer.getText())==true){
+                jLAusleiheStatusAuto.setText("Es exitieren offene Ausleihen. Löschen nicht möglich");
+                checkAusleihe = false;
+            }
+            else{
+                jLAusleiheStatusAuto.setText("Kunde kann gelöscht werden");
+                checkAusleihe = true;
+            }
+        }
+        else{
+            if(Dummy.checkInt(jTFKundennummer.getText())==false){
+                JOptionPane.showMessageDialog(null, "Fehler in der Kundennummer", "Fehler", JOptionPane.ERROR_MESSAGE);
+            }
+            if(Datenbankoperationen.CheckKundennummern(jTFKundennummer.getText())==false){
+                JOptionPane.showMessageDialog(null, "Kundennummer existiert nicht!", "Fehler", JOptionPane.ERROR_MESSAGE);
+            }                    
+        }
+        
     }//GEN-LAST:event_jBSuchenActionPerformed
 
     private void jTFKundennummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFKundennummerActionPerformed
@@ -1208,8 +1246,6 @@ public class Videothek extends javax.swing.JFrame {
 
     private void jBKundeSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKundeSpeichernActionPerformed
         // TODO add your handling code here:
-        System.out.println(Dummy.checkPLZ(jTFPlz.getText()));
-        System.out.println(Dummy.checkDatum(jTAG.getText(), jMonat.getText(), jJahr.getText()));
         if(((Dummy.checkPLZ(jTFPlz.getText())) == true)&&((Dummy.checkDatum(jTAG.getText(), jMonat.getText(), jJahr.getText()))==true)){
             Datenbankoperationen.kundenAnlegen((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText(), Dummy.datumZusammensetzen(jTAG.getText(), jMonat.getText(), jJahr.getText()));
             jLKundennummerAuto.setText(Datenbankoperationen.kundenAnlegenIDRuckgabe((String) jComboBox5.getSelectedItem(), jTFVorname.getText(), jTFNachname.getText(), jTFStrasse.getText(), jTFPlz.getText(), jTFOrt.getText(),Dummy.datumZusammensetzen(jTAG.getText(), jMonat.getText(), jJahr.getText())));
@@ -1265,24 +1301,39 @@ public class Videothek extends javax.swing.JFrame {
             kunde.setGeburtsdatum(jTFGebAendern.getText());
             //In DB speichern
             Datenbankoperationen.kundenAendern(kunde.getKundenID(), kunde);
+            
         }else{
             JOptionPane.showMessageDialog(null, "Kein erfolgreicher Datensatz");
         }
     }//GEN-LAST:event_jBKundeAendernActionPerformed
 
-    private void jScrollPane2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusGained
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jScrollPane2FocusGained
-
     private void jTPKundenMenuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPKundenMenuFocusGained
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jTPKundenMenuFocusGained
 
     private void jTPKundenMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPKundenMenuMouseClicked
-        // TODO add your handling code here:        
+        // TODO add your handling code here:   
+        
     }//GEN-LAST:event_jTPKundenMenuMouseClicked
+
+    private void jBLoeschenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jBLoeschenItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBLoeschenItemStateChanged
+
+    private void jBLoeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoeschenActionPerformed
+        // TODO add your handling code here:
+        if((checkAusleihe==true)&&(Datenbankoperationen.CheckKundennummern(jTFKundennummer.getText())==true)){
+            Datenbankoperationen.kundenLöschen(jTFKundennummer.getText());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Kundennummer existiert nicht!", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBLoeschenActionPerformed
+
+    private void jScrollPane2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jScrollPane2FocusGained
 
     /**
      * @param args the command line arguments
