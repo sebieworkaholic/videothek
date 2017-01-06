@@ -48,15 +48,18 @@ public class Videothek extends javax.swing.JFrame {
         jTFASArtikelNummer = new javax.swing.JTextField();
         jBASAusleiheBestaetigen = new javax.swing.JButton();
         jLASKundeAnzeigen = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTAASKundeAllAusleihen = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
         jPOffeneAusleihenGesamt = new javax.swing.JPanel();
-        jLOffeneAusleiheAuto = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPOffeneAusleihenKunde = new javax.swing.JPanel();
         jLKundennummerOffeneAusleihe = new javax.swing.JLabel();
-        jLKundeOffeneAusleihenAuto = new javax.swing.JLabel();
         jTKundennummerOffeneAusleihen = new javax.swing.JTextField();
         jBKundennummerOffeneAusleihe = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         jPRueckgabe = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -115,18 +118,17 @@ public class Videothek extends javax.swing.JFrame {
         jLAdresseAuto = new javax.swing.JLabel();
         jLAusleiheStatusAuto = new javax.swing.JLabel();
         jBLoeschen = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jButton10 = new javax.swing.JButton();
         jPMedien = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -143,25 +145,28 @@ public class Videothek extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jTextField9 = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        boxMedA = new javax.swing.JComboBox<>();
+        boxKatA = new javax.swing.JComboBox<>();
+        boxFSKA = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
         jPFooter = new javax.swing.JPanel();
         jLDate = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -188,13 +193,14 @@ public class Videothek extends javax.swing.JFrame {
 
         jBASAusleiheBestaetigen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jBASAusleiheBestaetigen.setText("Ausleihe Bestätigen");
+        jBASAusleiheBestaetigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBASAusleiheBestaetigenActionPerformed(evt);
+            }
+        });
 
         jLASKundeAnzeigen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLASKundeAnzeigen.setText("Aktuelle Ausleihen für Kunde: <Kunde Anzeigen>");
-
-        jTAASKundeAllAusleihen.setColumns(20);
-        jTAASKundeAllAusleihen.setRows(5);
-        jScrollPane1.setViewportView(jTAASKundeAllAusleihen);
 
         javax.swing.GroupLayout jPAusleiheStartenLayout = new javax.swing.GroupLayout(jPAusleiheStarten);
         jPAusleiheStarten.setLayout(jPAusleiheStartenLayout);
@@ -212,9 +218,10 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTFASArtikelNummer))
                 .addGap(73, 73, 73)
                 .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                    .addGroup(jPAusleiheStartenLayout.createSequentialGroup()
+                        .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jScrollPane6)))
         );
         jPAusleiheStartenLayout.setVerticalGroup(
             jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +230,6 @@ public class Videothek extends javax.swing.JFrame {
                 .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPAusleiheStartenLayout.createSequentialGroup()
                         .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTFASKundenNummer)
@@ -234,13 +240,19 @@ public class Videothek extends javax.swing.JFrame {
                             .addComponent(jTFASArtikelNummer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jBASAusleiheBestaetigen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 401, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(412, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6)))
         );
 
         jTPAusleihenMenu.addTab("Ausleihe Starten...", jPAusleiheStarten);
 
-        jLOffeneAusleiheAuto.setText("<auto OffeneAusleihen");
+        jButton11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton11.setText("Update");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPOffeneAusleihenGesamtLayout = new javax.swing.GroupLayout(jPOffeneAusleihenGesamt);
         jPOffeneAusleihenGesamt.setLayout(jPOffeneAusleihenGesamtLayout);
@@ -248,15 +260,19 @@ public class Videothek extends javax.swing.JFrame {
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE))
         );
         jPOffeneAusleihenGesamtLayout.setVerticalGroup(
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLOffeneAusleiheAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(569, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)))
         );
 
         jTPAusleihenMenu.addTab("Offene Ausleihen Gesamt", jPOffeneAusleihenGesamt);
@@ -265,12 +281,24 @@ public class Videothek extends javax.swing.JFrame {
         jLKundennummerOffeneAusleihe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLKundennummerOffeneAusleihe.setText("Kundennummer");
 
-        jLKundeOffeneAusleihenAuto.setText("<auto Offene Ausleihen");
-
         jTKundennummerOffeneAusleihen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jBKundennummerOffeneAusleihe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBKundennummerOffeneAusleihe.setText("Suchen");
+        jBKundennummerOffeneAusleihe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBKundennummerOffeneAusleiheActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPOffeneAusleihenKundeLayout = new javax.swing.GroupLayout(jPOffeneAusleihenKunde);
         jPOffeneAusleihenKunde.setLayout(jPOffeneAusleihenKundeLayout);
@@ -278,15 +306,23 @@ public class Videothek extends javax.swing.JFrame {
             jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLKundeOffeneAusleihenAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
                     .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
-                        .addComponent(jLKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTKundennummerOffeneAusleihen, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(370, Short.MAX_VALUE))
+                        .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
+                                .addComponent(jLKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTKundennummerOffeneAusleihen, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBKundennummerOffeneAusleihe, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(370, Short.MAX_VALUE))
+                    .addGroup(jPOffeneAusleihenKundeLayout.createSequentialGroup()
+                        .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPOffeneAusleihenKundeLayout.setVerticalGroup(
             jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,8 +333,13 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTKundennummerOffeneAusleihen)
                     .addComponent(jLKundennummerOffeneAusleihe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLKundeOffeneAusleihenAuto, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPOffeneAusleihenKundeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTPAusleihenMenu.addTab("Offene Ausleihen für Kunde", jPOffeneAusleihenKunde);
@@ -790,17 +831,35 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
 
-        jScrollPane2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jScrollPane2FocusGained(evt);
+        jButton10.setText("Update");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
             }
         });
 
-        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM t_kunden ORDER BY Kunden_Nr ASC");
-        jTable1.setModel(dtm);
-        jScrollPane2.setViewportView(jTable1);
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(563, Short.MAX_VALUE))))
+        );
 
-        jTPKundenMenu.addTab("Alle Kunden", jScrollPane2);
+        jTPKundenMenu.addTab("Alle Kunden", jPanel5);
 
         javax.swing.GroupLayout jPKundenLayout = new javax.swing.GroupLayout(jPKunden);
         jPKunden.setLayout(jPKundenLayout);
@@ -816,10 +875,6 @@ public class Videothek extends javax.swing.JFrame {
         jTPHauptmenue.addTab("Kunden", jPKunden);
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Bezeichnung");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -841,8 +896,6 @@ public class Videothek extends javax.swing.JFrame {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("FSK");
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
         jTextField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -854,12 +907,17 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Medium Erstellen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getMedientypenNameAlle()));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getKategorieNameAlle()));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getFSKAltersklassenAlle()));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel28.setText("  Neues Medium-Format");
@@ -873,6 +931,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton6.setText("Erstellen");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel29.setText("  Neue Kategorie");
@@ -886,6 +949,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton7.setText("Erstellen");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -900,7 +968,6 @@ public class Videothek extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -909,7 +976,6 @@ public class Videothek extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jComboBox1, 0, 304, Short.MAX_VALUE)
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -927,10 +993,7 @@ public class Videothek extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField17)
@@ -969,12 +1032,13 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("Suchen");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextField9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel19.setText("Bezeichnung");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -996,25 +1060,26 @@ public class Videothek extends javax.swing.JFrame {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("FSK");
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
-
         jTextField11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        jTextField12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jTextField13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        jTextField15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Änderung Speichern");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        boxMedA.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getMedientypenNameAlle()));
+
+        boxKatA.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getKategorieNameAlle()));
+
+        boxFSKA.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getFSKAltersklassenAlle()));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1023,26 +1088,27 @@ public class Videothek extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField9)
-                            .addComponent(jTextField10)
                             .addComponent(jTextField11)
-                            .addComponent(jTextField12)
                             .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                            .addComponent(jTextField14)
-                            .addComponent(jTextField15)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 353, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(boxMedA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxKatA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxFSKA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(353, 353, 353))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1052,30 +1118,28 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(boxMedA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(boxKatA)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(boxFSKA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 127, Short.MAX_VALUE))
@@ -1091,11 +1155,26 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("Löschen");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("<auto artikel nr>");
 
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setText("<auto bezeichnung>");
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton8.setText("Suchen");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1113,13 +1192,16 @@ public class Videothek extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1132,6 +1214,37 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Löschen", jPanel3);
+
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton9.setText("Update");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(550, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane1.addTab("Alle Medien", jPanel4);
 
         javax.swing.GroupLayout jPMedienLayout = new javax.swing.GroupLayout(jPMedien);
         jPMedien.setLayout(jPMedienLayout);
@@ -1203,10 +1316,6 @@ public class Videothek extends javax.swing.JFrame {
     private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField18ActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void jBSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSuchenActionPerformed
         // TODO add your handling code here:
@@ -1330,10 +1439,180 @@ public class Videothek extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBLoeschenActionPerformed
 
-    private void jScrollPane2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusGained
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        Datenbankoperationen.medietypenAnlegen(jTextField17.getText());
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-    }//GEN-LAST:event_jScrollPane2FocusGained
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        Datenbankoperationen.kategorieAnlegen(jTextField18.getText());
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(Dummy.checkIntFilmJahr(jTextField6.getText())==true){
+            if((jComboBox1.getSelectedIndex()>-1)&&(jComboBox2.getSelectedIndex()>-1)&&(jComboBox3.getSelectedIndex()>-1)){
+                int medium_ID, kategorie_ID, fsk_ID;
+                medium_ID = (jComboBox1.getSelectedIndex()+1);
+                kategorie_ID = (jComboBox2.getSelectedIndex()+1);
+                fsk_ID = (jComboBox3.getSelectedIndex()+1);                
+                Medien neuMedien = new Medien(medium_ID, jTextField6.getText(), jTextField3.getText(), kategorie_ID, fsk_ID);
+                Datenbankoperationen.medienAnlegenInDB(neuMedien);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Überprüfen Sie Ihre FSK, Kategorie oder Medium", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if((Dummy.checkIntArtikelNr(jTextField9.getText())==true)&&(Datenbankoperationen.medienCheckArtikelNr(jTextField9.getText())==true)){
+            Medien loadMedien = Datenbankoperationen.medienAuslesen(jTextField9.getText());
+            jLabel12.setText(""+loadMedien.getFILM_ID()+"");
+            jTextField11.setText(loadMedien.getTitel());
+            boxMedA.setSelectedIndex(loadMedien.getMedium()-1);
+            jTextField13.setText(loadMedien.getErscheinungsjahr());
+            boxKatA.setSelectedIndex(loadMedien.getKategorie()-1);
+            boxFSKA.setSelectedIndex(loadMedien.getFSK()-1);            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if(Dummy.checkIntFilmJahr(jTextField13.getText())==true){
+            Medien update = new Medien();
+            int i = 0;
+            try{
+                i = Integer.parseInt(jLabel12.getText());
+                update.setFILM_ID(i);
+                update.setTitel(jTextField11.getText());
+                update.setMedium(boxMedA.getSelectedIndex()+1);
+                update.setErscheinungsjahr(jTextField13.getText());
+                update.setKategorie(boxKatA.getSelectedIndex()+1);
+                update.setFSK(boxFSKA.getSelectedIndex()+1);
+                Datenbankoperationen.medienAendern(update);                
+            }
+            catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Unwirklicher Fehler", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+            }  
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if((Dummy.checkIntArtikelNr(jTextField16.getText())==true)&&(Datenbankoperationen.medienCheckArtikelNr(jTextField16.getText())==true)){
+            Medien loadMedien = Datenbankoperationen.medienAuslesen(jTextField16.getText());
+            jLabel26.setText(""+loadMedien.getFILM_ID()+"");
+            jLabel27.setText(loadMedien.getTitel());
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Medien loadMedien = Datenbankoperationen.medienAuslesen(jTextField16.getText());
+        int eingabe = JOptionPane.showConfirmDialog(null,
+                    "Achtung wollen Sie wirklich Artikel-Nr.:\n"
+                    +""+loadMedien.getFILM_ID()
+                    +" "
+                    +loadMedien.getTitel()
+                    +" Löschen?",    
+                    "Löschen?",
+                    JOptionPane.YES_NO_OPTION);                                      
+        switch (eingabe) {
+            case 1: //Nein
+                    break;
+                    
+            case 0: if(Datenbankoperationen.CheckArtikelAusgeliehen(""+loadMedien.getFILM_ID())==false){
+                        Datenbankoperationen.medienLoeschen(loadMedien.getFILM_ID());
+                    }
+                    else{
+                    JOptionPane.showMessageDialog(null,"Artikel ausgeliehen","Nicht möglich",JOptionPane.ERROR_MESSAGE);
+                    }
+                     
+                    
+                    break;
+        }                    
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        JTable jTable2 = new javax.swing.JTable();
+        DefaultTableModel dtm2 = Datenbankoperationen.buildTable("SELECT * FROM medien ORDER BY FILM_ID ASC");
+        jTable2.setModel(dtm2);
+        jScrollPane4.setViewportView(jTable2);
+        
+        
+
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        JTable jTable1 = new javax.swing.JTable();
+        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM t_kunden ORDER BY Kunden_Nr ASC");
+        jTable1.setModel(dtm);
+        jScrollPane3.setViewportView(jTable1);
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        JTable jTable1 = new javax.swing.JTable();
+        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null ORDER BY Anfangsdatum ASC");
+        jTable1.setModel(dtm);
+        jScrollPane2.setViewportView(jTable1);
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jBKundennummerOffeneAusleiheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBKundennummerOffeneAusleiheActionPerformed
+        // TODO add your handling code here:
+        if((Dummy.checkInt(jTKundennummerOffeneAusleihen.getText()) == true)&&(Datenbankoperationen.CheckKundennummern(jTKundennummerOffeneAusleihen.getText())==true)){
+            Kunden kunde = Datenbankoperationen.kundeAuslesen(jTKundennummerOffeneAusleihen.getText());
+            jLabel19.setText(kunde.getVorname());
+            jLabel31.setText(kunde.getNachname());
+            jLabel32.setText(kunde.getStrasse()+", "+kunde.getPlz()+" "+kunde.getWohnort());
+            
+            JTable jTable1 = new javax.swing.JTable();
+            DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null AND Kunden_NR="+jTKundennummerOffeneAusleihen.getText()+" ORDER BY Anfangsdatum ASC");
+            jTable1.setModel(dtm);
+            jScrollPane5.setViewportView(jTable1);
+            
+        }
+    }//GEN-LAST:event_jBKundennummerOffeneAusleiheActionPerformed
+
+    private void jBASAusleiheBestaetigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBASAusleiheBestaetigenActionPerformed
+        // TODO add your handling code here:
+        boolean checkKunde1 = false;
+        boolean checkKunde2 = false;
+        boolean checkArtikel1 = false;
+        boolean checkArtikel2 = false;
+        if((Dummy.checkInt(jTFASKundenNummer.getText()) == true)&&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)){            
+            checkKunde1 = true;
+        }
+        if(Datenbankoperationen.CheckOffeneAusleihe(jTFASKundenNummer.getText())==false){
+            checkKunde2 = true;
+        }
+        if((Dummy.checkIntArtikelNr(jTFASArtikelNummer.getText())==true)&&(Datenbankoperationen.medienCheckArtikelNr(jTFASArtikelNummer.getText())==true)){
+            checkArtikel1 = true;
+        }
+        if(Datenbankoperationen.CheckArtikelAusgeliehen(jTFASArtikelNummer.getText())==false){
+            checkArtikel2 = true;
+        }
+        if((checkKunde1 && checkKunde2 && checkArtikel1 && checkArtikel2) == true){
+            Datenbankoperationen.leihenAnlegen(jTFASArtikelNummer.getText(), jTFASKundenNummer.getText());
+            
+            //Staus Feld
+            JTable jTable1 = new javax.swing.JTable();
+            DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null AND Kunden_NR="+jTFASKundenNummer.getText()+" AND Anfangsdatum=CURRENT_DATE ORDER BY Anfangsdatum ASC");
+            jTable1.setModel(dtm);
+            jScrollPane5.setViewportView(jTable1);
+            
+            
+        }
+        //Kunden kunde = Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText());
+        //Medien loadMedien = Datenbankoperationen.medienAuslesen(jTFASArtikelNummer.getText());
+    }//GEN-LAST:event_jBASAusleiheBestaetigenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1367,6 +1646,9 @@ public class Videothek extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxFSKA;
+    private javax.swing.JComboBox<String> boxKatA;
+    private javax.swing.JComboBox<String> boxMedA;
     private javax.swing.JButton jBASAusleiheBestaetigen;
     private javax.swing.JButton jBAendernKdrSuchen;
     private javax.swing.JButton jBKundeAendern;
@@ -1375,12 +1657,16 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JButton jBLoeschen;
     private javax.swing.JButton jBSuchen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -1396,14 +1682,12 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLAusleiheStatusAuto;
     private javax.swing.JLabel jLDate;
     private javax.swing.JLabel jLGeburtsdatum;
-    private javax.swing.JLabel jLKundeOffeneAusleihenAuto;
     private javax.swing.JLabel jLKundennummer;
     private javax.swing.JLabel jLKundennummerAuto;
     private javax.swing.JLabel jLKundennummerOffeneAusleihe;
     private javax.swing.JLabel jLKundennummerText;
     private javax.swing.JLabel jLNachname;
     private javax.swing.JLabel jLNachnameAuto;
-    private javax.swing.JLabel jLOffeneAusleiheAuto;
     private javax.swing.JLabel jLOrt;
     private javax.swing.JLabel jLPlz;
     private javax.swing.JLabel jLStrasse;
@@ -1433,6 +1717,8 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1454,9 +1740,13 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTAASKundeAllAusleihen;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTAG;
     private javax.swing.JTextField jTFASArtikelNummer;
     private javax.swing.JTextField jTFASKundenNummer;
@@ -1478,20 +1768,14 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTPHauptmenue;
     private javax.swing.JTabbedPane jTPKundenMenu;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables

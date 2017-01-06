@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Dez 2016 um 09:58
+-- Erstellungszeit: 02. Jan 2017 um 18:59
 -- Server-Version: 10.1.13-MariaDB
 -- PHP-Version: 7.0.8
 
@@ -99,6 +99,15 @@ CREATE TABLE `t_kunden` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabelle mit Kundendaten';
 
 --
+-- Daten für Tabelle `t_kunden`
+--
+
+INSERT INTO `t_kunden` (`Kunden_Nr`, `Anrede`, `Vorname`, `Nachname`, `Strasse`, `PLZ`, `Ort`, `Geburtsdatum`) VALUES
+(1000, 'Frau', 'Test', 'Test', 'Test 122', 12577, 'Berlin', '1966-09-08'),
+(1006, 'Herr', 'Neu', 'Neu', 'Neu2', 12455, 'Neu', '1988-08-08'),
+(1007, 'Herr', 'Testtt', 'Test', 'Test2', 45887, 'Test', '1987-08-07');
+
+--
 -- Indizes der exportierten Tabellen
 --
 
@@ -172,7 +181,7 @@ ALTER TABLE `medientypen`
 -- AUTO_INCREMENT für Tabelle `t_kunden`
 --
 ALTER TABLE `t_kunden`
-  MODIFY `Kunden_Nr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Kunden_Nr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1009;
 --
 -- Constraints der exportierten Tabellen
 --

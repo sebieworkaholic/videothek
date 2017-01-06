@@ -113,60 +113,97 @@ public class Datenbankoperationen {
     }
     
     //Methode zum auslesen der Kategorien im Datenbanksystem
-    public static ArrayList<Kategorie> getKategorieNameAlle() {
-        verbindenZurDB();
-
-        ArrayList<Kategorie> aList = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        Kategorie kategorie;
-        int id;
-        String bezeichnung;
+    public static String[] getKategorieNameAlle() {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        ArrayList<String> aList = new ArrayList<>();
+        String[] aArray; 
+        boolean check = false;
         try {
-            ps = connection_object.prepareStatement("SELECT * FROM kategorien");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                id = rs.getInt("KAT_ID");
-                bezeichnung = rs.getString("Kategoriename");
-                kategorie = new Kategorie(id, bezeichnung);  //Speicher die Spalte 'kategoriename' aus der Abfrage in die Variable
-                aList.add(kategorie);
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT kategorien.Kategoriename FROM kategorien ORDER BY kategorien.KAT_ID ASC ");
+            //Auslesen 
+            while(rs.next()){
+                aList.add(rs.getString(1));
+            }            
+            rs.close();
+            stmt.close();  
+            check = true;
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getKategorieNameAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } /*catch (IOException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        verbindungSchließenZurDB();
-        return aList;
+            catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"KategorienArrayLesefehler", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
+            }
+            if(check == false){
+                aArray=new String[]{"Keine Daten"};
+            }
+            else{
+                aArray=aList.toArray(new String[aList.size()]);
+            }
+        return aArray;
     }
     
     //Neue Kategorie anlegen in der Datenbank
     public static void kategorieAnlegen(String bezeichnung) {
-        verbindenZurDB();
-
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;
         PreparedStatement ps;
-        ArrayList<Kategorie> prüfen = getKategorieNameAlle();
-        Boolean contains = false;
-        for (Kategorie k : prüfen) {
-            if (k.getBezeichnung().equals(bezeichnung)) {
-                contains = true;
+        boolean check = false;        
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT kategorien.Kategoriename FROM kategorien WHERE kategorien.Kategoriename LIKE '"+bezeichnung+"' ");
+            while(rs.next()){ 
+                check = true;
+                break;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Abfrage nach Kategorie", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
+        if(check == false){           
+            try {
+                con = DriverManager.getConnection(url, user, password);
+                ps = con.prepareStatement("INSERT INTO kategorien (kategorien.KAT_ID, kategorien.Kategoriename) VALUES (NULL, ?)");
+                ps.setString(1, bezeichnung);
+                ps.execute();
+                ps.close();
+                JOptionPane.showMessageDialog(null, "Kategorie "+bezeichnung+" wurde gespeichert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "SQL beim Eintragen", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
             }
         }
-        if (contains) {
-            JOptionPane.showMessageDialog(null, "Kategorie existiert bereits!");
-        } else {
-            try {
-                ps = connection_object.prepareStatement("INSERT INTO kategorien (Kategoriename)" + "VALUES (?)");
-                ps.setString (1,bezeichnung);                
-                ps.execute();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kategorieAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } 
-
+        else{
+            JOptionPane.showMessageDialog(null, "Kategorie "+bezeichnung+" existiert bereits.");
         }
-        verbindungSchließenZurDB();
-    }
+    }        
     
     //Kategorie löschen
     public static void kategorieLoeschen(int kategorie_id) {
@@ -195,42 +232,7 @@ public class Datenbankoperationen {
     
     //Kategorie bearbeiten
     public static void kategorieBezeichnungAendern(int kategorie_id, String kategorieName_neu) {
-        verbindenZurDB();
-        PreparedStatement statement = null;
-        String sqlString = "UPDATE kategorie SET Kategoriename=? WHERE KAT_ID=?";
-        ArrayList<Kategorie> prüfen = getKategorieNameAlle();
-        boolean contains = false;
         
-        //Überprüfen ob die neu eingetragene Kategorie schon besteht
-        for (Kategorie k : prüfen) {
-            if (k.getBezeichnung().equals(kategorieName_neu)) {
-                contains = true;
-            }
-        }
-        if (contains) {
-            JOptionPane.showMessageDialog(null, "Kategorie existiert bereits!");
-        } else {
-            //Update durchführen
-            try {
-
-                statement = connection_object.prepareStatement(sqlString);
-                statement.setString(1, kategorieName_neu);
-                statement.setInt(2, kategorie_id);
-                statement.executeUpdate();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-        verbindungSchließenZurDB();
     }
     
     /////////////////////////
@@ -238,71 +240,43 @@ public class Datenbankoperationen {
     /////////////////////////
      
     //Methode zum auslesen der Altersklassen im Datenbanksystem
-    public static ArrayList<FSK> getFSKAltersklassenAlle(){
-        verbindenZurDB();
-    ArrayList<FSK> aList = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        FSK fsk;
-        int id;
-        String Altersklasse;
+    public static String[] getFSKAltersklassenAlle(){
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        ArrayList<String> aList = new ArrayList<>();
+        String[] aArray; 
+        boolean check = false;
         try {
-            ps = connection_object.prepareStatement("SELECT * FROM fsk");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                id = rs.getInt("FSK_ID");
-                Altersklasse = rs.getString("Altersklassen");
-                fsk = new FSK(id, Altersklasse);  //Speicher die Spalte 'Altersklasse' aus der Abfrage in die Variable
-                aList.add(fsk);
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT fsk.Altersklasse FROM fsk ORDER BY fsk.FSK_ID ASC");
+            //Auslesen 
+            while(rs.next()){
+                aList.add(rs.getString(1));
+            }            
+            rs.close();
+            stmt.close();  
+            check = true;
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getFSKAltersklassenAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } /*catch (IOException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        verbindungSchließenZurDB();
-        return aList;
-    }
-    
-    //Neue Altersklasse anlegen in der Datenbank
-    public static void altersklasseAnlegen(String altersklassen) {
-        verbindenZurDB();
-
-        PreparedStatement ps;
-        ArrayList<FSK> prüfen = getFSKAltersklassenAlle();
-        Boolean contains = false;
-        for (FSK k : prüfen) {
-            if (k.getAltersklassen().equals(altersklassen)) {
-                contains = true;
+            catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"FSKArrayLesefehler", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
             }
-        }
-        if (contains) {
-            JOptionPane.showMessageDialog(null, "Altersklasse existiert bereits!");
-        } else {
-            try {
-                ps = connection_object.prepareStatement("INSERT INTO fsk (Altersklassen)" + "VALUES (?)");
-                ps.setString (1,altersklassen);                
-                ps.execute();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(AltersklassenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } 
-
-        }
-        verbindungSchließenZurDB();
-    }
-    
-    //Altersklasse löschen
-    public static void altersklassenLoeschen(int fsk_id) {
-        verbindenZurDB();
-        PreparedStatement ps;
-        try {
-            ps = connection_object.prepareStatement("DELETE FROM fsk WHERE FSK_ID=?");
-            ps.setInt(1, fsk_id);
-            ps.execute();
-        } catch (SQLException ex) {
-        }
-        verbindungSchließenZurDB();
+            if(check == false){
+                aArray=new String[]{"Keine Daten"};
+            }
+            else{
+                aArray=aList.toArray(new String[aList.size()]);
+            }
+        return aArray;
     }
     
     /////////////////////////
@@ -353,60 +327,97 @@ public class Datenbankoperationen {
     }
     
     //Methode zum auslesen der Medientyp-Bezeichnung im Datenbanksystem
-    public static ArrayList<Medientypen> getMedientypenNameAlle() {
-        verbindenZurDB();
-
-        ArrayList<Medientypen> aList = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        Medientypen medientypen;
-        int id;
-        String bezeichnung;
+    public static String[] getMedientypenNameAlle() {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        ArrayList<String> aList = new ArrayList<>();
+        String[] aArray; 
+        boolean check = false;
         try {
-            ps = connection_object.prepareStatement("SELECT * FROM medientypen");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                id = rs.getInt("Medien_ID");
-                bezeichnung = rs.getString("Bezeichnung");
-                medientypen = new Medientypen(id, bezeichnung);  //Speicher die Spalte 'Bezeichnung' aus der Abfrage in die Variable
-                aList.add(medientypen);
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT medientypen.Bezeichnung FROM medientypen ORDER BY medientypen.Medien_ID ASC");
+            //Auslesen 
+            while(rs.next()){
+                aList.add(rs.getString(1));
+            }            
+            rs.close();
+            stmt.close();  
+            check = true;
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getKategorieNameAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } /*catch (IOException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        verbindungSchließenZurDB();
-        return aList;
+            catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"MedientypenArrayLesefehler", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
+            }
+            if(check == false){
+                aArray=new String[]{"Keine Daten"};
+            }
+            else{
+                aArray=aList.toArray(new String[aList.size()]);
+            }
+        return aArray;
     }
     
     //Neue Medientyp anlegen in der Datenbank
     public static void medietypenAnlegen(String bezeichnung) {
-        verbindenZurDB();
-
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;
         PreparedStatement ps;
-        ArrayList<Medientypen> prüfen = getMedientypenNameAlle();
-        Boolean contains = false;
-        for (Medientypen k : prüfen) {
-            if (k.getBezeichnung().equals(bezeichnung)) {
-                contains = true;
+        boolean check = false;        
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT Bezeichnung FROM medientypen WHERE Bezeichnung LIKE '"+bezeichnung+"' ");
+            while(rs.next()){ 
+                check = true;
+                break;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL Abfrage nach Medientyp", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
+        if(check == false){           
+            try {
+                con = DriverManager.getConnection(url, user, password);
+                ps = con.prepareStatement("INSERT INTO medientypen (medientypen.Medien_ID, medientypen.Bezeichnung) VALUES (NULL, ?)");
+                ps.setString(1, bezeichnung);
+                ps.execute();
+                ps.close();
+                JOptionPane.showMessageDialog(null, "Medientyp "+bezeichnung+" wurde gespeichert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "SQL beim Eintragen", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
             }
         }
-        if (contains) {
-            JOptionPane.showMessageDialog(null, "Medientyp existiert bereits!");
-        } else {
-            try {
-                ps = connection_object.prepareStatement("INSERT INTO medietypen (Bezeichnung)" + "VALUES (?)");
-                ps.setString (1,bezeichnung);                
-                ps.execute();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medietypenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } 
-
+        else{
+            JOptionPane.showMessageDialog(null, "Medientyp "+bezeichnung+" existiert bereits.");
         }
-        verbindungSchließenZurDB();
-    }
+    }        
     
     //Medietypen löschen
     public static void medientypLoeschen(int medientyp_id) {
@@ -435,42 +446,7 @@ public class Datenbankoperationen {
     
     //Medientyp bearbeiten
     public static void medientypBezeichnungAendern(int medientyp_id, String medientypBezeichnung_neu) {
-        verbindenZurDB();
-        PreparedStatement statement = null;
-        String sqlString = "UPDATE medientypen SET Bezeichnung=? WHERE Medien_ID=?";
-        ArrayList<Medientypen> prüfen = getMedientypenNameAlle();
-        boolean contains = false;
         
-        //Überprüfen ob die neu eingetragene Medientyp schon besteht
-        for (Medientypen k : prüfen) {
-            if (k.getBezeichnung().equals(medientypBezeichnung_neu)) {
-                contains = true;
-            }
-        }
-        if (contains) {
-            JOptionPane.showMessageDialog(null, "Medientyp existiert bereits!");
-        } else {
-            //Update durchführen
-            try {
-
-                statement = connection_object.prepareStatement(sqlString);
-                statement.setString(1, medientypBezeichnung_neu);
-                statement.setInt(2, medientyp_id);
-                statement.executeUpdate();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude", "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-        verbindungSchließenZurDB();
     }
     
     /////////////////////////
@@ -480,25 +456,25 @@ public class Datenbankoperationen {
     //Kunden anlegen
     public static void kundenAnlegen(String anrede, String vorname, String nachname, String strasse, String plz, String wohnort, String geburtsdatum){
         verbindenZurDB();
-        try {
-            
-            PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement(
-                    "INSERT INTO `as-video`.`t_kunden` (`Kunden_Nr`, `Anrede`, `Vorname`, "
-                    + "`Nachname`, `Strasse`, `PLZ`, `Ort`, `Geburtsdatum`) VALUES "
-                    + "(NULL, ?, ?, ?, ?, ?, ?, ?);");
-            ps.setString(1, anrede);   
-            ps.setString(2, vorname);
-            ps.setString(3, nachname);
-            ps.setString(4, strasse);
-            ps.setString(5, plz);
-            ps.setString(6, wohnort);
-            ps.setString(7, geburtsdatum);
-            ps.execute();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+            try {
 
-        }   
+                PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement(
+                        "INSERT INTO `as-video`.`t_kunden` (`Kunden_Nr`, `Anrede`, `Vorname`, "
+                        + "`Nachname`, `Strasse`, `PLZ`, `Ort`, `Geburtsdatum`) VALUES "
+                        + "(NULL, ?, ?, ?, ?, ?, ?, ?);");
+                ps.setString(1, anrede);   
+                ps.setString(2, vorname);
+                ps.setString(3, nachname);
+                ps.setString(4, strasse);
+                ps.setString(5, plz);
+                ps.setString(6, wohnort);
+                ps.setString(7, geburtsdatum);
+                ps.execute();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(kundenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
+
+            }   
         verbindungSchließenZurDB();
     }
     //ID von Angelegten Kunden ermitteln
@@ -635,85 +611,145 @@ public class Datenbankoperationen {
             }
         }
     }
-    /////////////////////////
-    ////     Medien      ////
-    /////////////////////////
     
     //Methode zum anlegen einer Media im Datenbanksystem
-    public static void medienAnlegenInDB(Medien medienObject) {
-        verbindenZurDB();
-
-        //Deklaration der benötigten Variablen
+    public static void medienAnlegenInDB(Medien medienObject){
+        Connection con = null;
+        PreparedStatement ps;
+        Statement stmt;
+        ResultSet rs;
+                
         String titel;
         String erscheinungsjahr;
         int medientyp, kategorie, fsk;
+        String newID = new String ();
 
-        titel = medienObject.getTitel();                            //Variable erwartet String
-        erscheinungsjahr = medienObject.getErscheinungsjahr();      //Variable erwartet String
-        medientyp = medienObject.getMedium();                       //Variable erwartet int
-        kategorie = medienObject.getKategorie();                    //Variable erwartet int
-        fsk = medienObject.getFSK();                                //Variable erwartet int
-        
-
+        titel = medienObject.getTitel();                            
+        erscheinungsjahr = medienObject.getErscheinungsjahr();      
+        medientyp = medienObject.getMedium();                       
+        kategorie = medienObject.getKategorie();                    
+        fsk = medienObject.getFSK(); 
         //Eintragung des 'medien_object' als Medien in die Datenbank
         try {
-            
-            PreparedStatement ps;
-            ps = connection_object.prepareStatement("INSERT INTO medien " //Einfüge-Befehl in die Tabelle 'medien'
-                    + "(titel, "
-                    + "erscheinungsjahr, "
-                    + "medientyp, "
-                    + "kategorie, "
-                    + "fsk,) "                     
-                    + "VALUES (?,?,?,?,?)");
-            ps.setString(1, titel);   //Spalte 'titelname' = titelname
-            ps.setString(2, erscheinungsjahr); //Spalte 'erscheinungsjahr' = erscheinungsjahr
-            ps.setInt(3, medientyp);          //Spalte 'medientyp' = medientyp
-            ps.setInt(4, kategorie);     //Spalte 'kategorie' = kategorie
-            ps.setInt(5, fsk);       //Spalte 'fsk' = fsk            
+            con = DriverManager.getConnection(url, user, password);
+            ps = con.prepareStatement("INSERT INTO medien (medien.FILM_ID, medien.Medium, medien.Erscheinungsjahr, medien.Titel, medien.Kategorie, "
+                                        +"medien.FSK) VALUES (NULL, "
+                                        +"?, ?, ?, ?, ?)");
+            ps.setInt(1, medientyp);   
+            ps.setString(2, erscheinungsjahr);
+            ps.setString(3, titel);          
+            ps.setInt(4, kategorie);     
+            ps.setInt(5, fsk);        
             ps.execute();
+            ps.close();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT medien.FILM_ID FROM medien ORDER BY medien.FILM_ID DESC LIMIT 1");
+            while(rs.next()){
+                newID=rs.getString(1);
+            }             
+            JOptionPane.showMessageDialog(null, ""+titel+" wurde unter der Artikel-Nr.: "+newID+" gespeichert");            
         } catch (SQLException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAnlegenInDB)", "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ""+titel+" konnte nicht erstellt werden", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }        
+    }
+    //Methode zum anlegen einer Media im Datenbanksystem
+    public static void medienAendern(Medien medienObject){
+        Connection con = null;
+        String update = "UPDATE medien SET "
+                        +"medien.Medium=?, "
+                        +"medien.Erscheinungsjahr=?, "
+                        +"medien.Titel=?, "
+                        +"medien.Kategorie=?, "
+                        +"medien.FSK=? "
+                        +"WHERE medien.FILM_ID="
+                        +"? "; 
+        
+        String titel=medienObject.getTitel();   
+        String erscheinungsjahr= medienObject.getErscheinungsjahr();
+        int medientyp = medienObject.getMedium(); 
+        int kategorie = medienObject.getKategorie();
+        int fsk = medienObject.getFSK();
+        int filmID = medienObject.getFILM_ID();
+        //Änderung in DB
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = con.prepareStatement(update);
+            ps.setInt(1, medientyp);   
+            ps.setString(2, erscheinungsjahr);
+            ps.setString(3, titel);          
+            ps.setInt(4, kategorie);     
+            ps.setInt(5, fsk);
+            ps.setInt(6, filmID);
+            ps.execute();
+            ps.close();            
+            JOptionPane.showMessageDialog(null, "Änderung von: "+titel+" wurde unter der Artikel-Nr.: "+medienObject.getFILM_ID()+" gespeichert");            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ""+titel+" konnte nicht geändert werden", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
         }
-        verbindungSchließenZurDB();
     }
     
     //Medien löschen
-    public static void medienLöschen(int FILM_ID) {
+    public static void medienLoeschen(int FILM_ID) {
         verbindenZurDB();
         try {
             PreparedStatement ps = Datenbankoperationen.connection_object.prepareStatement("DELETE FROM medien WHERE FILM_ID = ?");
             ps.setInt(1, FILM_ID);
             ps.execute();
+            JOptionPane.showMessageDialog(null, " "+FILM_ID+" gelöscht");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Kunde kann nicht gelöscht werde da Ausleihvorgang vorhanden(medienLöschen)");
+            JOptionPane.showMessageDialog(null, "Fehler SQL");
         }   
         verbindungSchließenZurDB();
     }
     
     //Medien auslesen
-    public static Medien medienAuslesen(int FILM_ID) {
-        verbindenZurDB();
-
-        ResultSet rs;
+    public static Medien medienAuslesen(String filmID) {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs;    
         Medien medien = new Medien();
         try {
-            PreparedStatement ps = connection_object.prepareStatement("SELECT * FROM medien WHERE FILM_ID = ?");
-            ps.setInt(1, FILM_ID);
-            rs = ps.executeQuery();
-            
-            medien.setFILM_ID(rs.getInt("FILM_ID"));
-            medien.setMedium(rs.getInt("Medium"));
-            medien.setErscheinungsjahr(rs.getString("Erscheinungsjahr"));
-            medien.setTitel(rs.getString("Titel"));
-            medien.setKategorie(rs.getInt("Kategorie"));
-            medien.setFSK(rs.getInt("FSK"));
-            
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM medien WHERE medien.FILM_ID = "+filmID);
+            while(rs.next()){
+                medien.setFILM_ID(rs.getInt(1));
+                medien.setMedium(rs.getInt(2));
+                medien.setErscheinungsjahr(rs.getString(3));
+                medien.setTitel(rs.getString(4));
+                medien.setKategorie(rs.getInt(5));
+                medien.setFSK(rs.getInt(6));
+                break;
+            }
+            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(medienAuslesen)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } 
-        verbindungSchließenZurDB();
+            JOptionPane.showMessageDialog(null, "Kundennummer existiert nicht", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
         return medien;
     }
     
@@ -748,32 +784,19 @@ public class Datenbankoperationen {
         verbindungSchließenZurDB();
         return aList;
     }
-    
-    public static void medienBearbeiten(int FILM_ID) {
-        verbindenZurDB();
-        verbindungSchließenZurDB();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.      
-        
-    }
-    
     /////////////////////////
     ////     Leihen      ////
     /////////////////////////
     
     //ausleihvorgang anlegen
-    public static void leihenAnlegen(int Film_ID, int Kunden_NR, String Enddatum) {
+    public static void leihenAnlegen(String Film_ID, String Kunden_NR) {
         verbindenZurDB();
         try {
-            
             PreparedStatement ps;
-            ps = connection_object.prepareStatement("INSERT INTO leihen " //Einfüge-Befehl in die Tabelle 'leihen'
-                    + "(Film_ID, "
-                    + "Kunden_NR, "
-                    + "Enddatum, )"                                         
-                    + "VALUES (?,?,?)");
-            ps.setInt(1, Film_ID);   //Spalte 'Film_ID' = Film_ID
-            ps.setInt(2, Kunden_NR); //Spalte 'Kunden_NR' = Kunden_NR
-            ps.setString(3, Enddatum);          //Spalte 'Enddatum' = Enddatum         
+            ps = connection_object.prepareStatement("INSERT INTO leihen (Film_ID, Kunden_NR, Anfangsdatum, Enddatum) "
+                                                    +"VALUES ( ?, ?, CURRENT_DATE, null)");
+            ps.setString(1, Film_ID);   
+            ps.setString(2, Kunden_NR);
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
@@ -980,5 +1003,65 @@ public class Datenbankoperationen {
             } 
         }            
         return check;
+    }
+    //Check Artikel ausgeliehen
+    public static Boolean CheckArtikelAusgeliehen(String filmID) {
+        Connection con = null;
+        Statement stmt;
+        ResultSet rs; 
+        boolean check = false;        
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM leihen WHERE leihen.Film_ID="+filmID+" and leihen.Enddatum = null ");
+            while(rs.next()){ 
+                check = true;
+                break;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Keine Ausleihe Fehler", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }            
+        return check;
+    }
+    //Methode zum anlegen einer Media im Datenbanksystem
+    public static boolean medienCheckArtikelNr(String checkID){
+        Connection con = null;        
+        Statement stmt;
+        ResultSet rs;               
+        boolean check = false;
+        
+        try {
+            con = DriverManager.getConnection(url, user, password);            
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT medien.FILM_ID FROM medien WHERE medien.FILM_ID = "+checkID);
+            while(rs.next()){
+                check=true;
+                break;
+            }      
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ""+checkID+" ??? SQL", "Fehler", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        }
+        if(check == false){
+            JOptionPane.showMessageDialog(null, ""+checkID+" existiert nicht");    
+        }
+        return check;        
     }
 }   
