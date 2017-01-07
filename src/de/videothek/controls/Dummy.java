@@ -89,10 +89,10 @@ public class Dummy {
             i = Integer.parseInt(eingabe);
             if(i<10000){
                 check=false;
-                JOptionPane.showMessageDialog(null, "Artikel-Nr.: minimum 10000","Ihr Fehler", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Artikel-Nr.: minimum 10000","Ihr Fehler", JOptionPane.ERROR_MESSAGE);
             }
         }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Dies is keine logische Zahl", "Ihr Fehler", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Dies is keine logische Zahl", "Ihr Fehler", JOptionPane.ERROR_MESSAGE);
             check = false;
         }
         return check;
