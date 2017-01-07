@@ -1638,7 +1638,7 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
         JTable jTable1 = new javax.swing.JTable();
         DefaultTableModel dtm = Datenbankoperationen.buildTable(
-                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, fsk.Altersklasse, kategorien.Kategoriename"
+                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, fsk.Altersklasse, kategorien.Kategoriename "
                +"FROM leihen, t_kunden, medien, fsk, kategorien WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR=t_kunden.Kunden_Nr AND leihen.Film_ID"
                +"=medien.FILM_ID AND medien.Kategorie=kategorien.KAT_ID AND medien.FSK=fsk.FSK_ID ORDER BY leihen.Anfangsdatum ASC");
         jTable1.setModel(dtm);
