@@ -1615,9 +1615,9 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
         JTable jTable2 = new javax.swing.JTable();
         DefaultTableModel dtm2 = Datenbankoperationen.buildTable(
-                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, fsk.Altersklasse, kategorien.Kategoriename"
-               +"FROM leihen, t_kunden, medien, fsk, kategorien WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR=t_kunden.Kunden_Nr AND leihen.Film_ID"
-               +"=medien.FILM_ID AND medien.Kategorie=kategorien.KAT_ID AND medien.FSK=fsk.FSK_ID ORDER BY leihen.Anfangsdatum ASC");
+                "SELECT medien.FILM_ID, medien.Titel, kategorien.Kategoriename, medientypen.Bezeichnung, medien.Erscheinungsjahr, fsk.Altersklasse "
+               +"FROM medien, kategorien, fsk, medientypen WHERE medien.Medium=medientypen.Medien_ID AND medien.Kategorie=kategorien.KAT_ID AND "
+               +"medien.FSK=fsk.FSK_ID ORDER BY medien.FILM_ID ASC ");
         jTable2.setModel(dtm2);
         jScrollPane4.setViewportView(jTable2);
         
@@ -1638,9 +1638,9 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
         JTable jTable1 = new javax.swing.JTable();
         DefaultTableModel dtm = Datenbankoperationen.buildTable(
-                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Anrede, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, "
-               +"fsk.Altersklasse, kategorien.Kategoriename, (CURRENT_DATE-leihen.Anfangsdatum) AS Dauer FROM leihen, t_kunden, "
-               +"medien, fsk, kategorien WHERE leihen.Enddatum IS NULL ORDER BY leihen.Anfangsdatum ASC");
+                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, fsk.Altersklasse, kategorien.Kategoriename"
+               +"FROM leihen, t_kunden, medien, fsk, kategorien WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR=t_kunden.Kunden_Nr AND leihen.Film_ID"
+               +"=medien.FILM_ID AND medien.Kategorie=kategorien.KAT_ID AND medien.FSK=fsk.FSK_ID ORDER BY leihen.Anfangsdatum ASC");
         jTable1.setModel(dtm);
         jScrollPane2.setViewportView(jTable1);
         
@@ -1661,11 +1661,13 @@ public class Videothek extends javax.swing.JFrame {
             jScrollPane5.setVisible(true);            
         }
         else{
+            JOptionPane.showMessageDialog(null,"Artikel ausgeliehen / Fehler","Nicht möglich",JOptionPane.ERROR_MESSAGE);
+        }
             jLabel19.setText("");
             jLabel31.setText("");
             jLabel32.setText("Keine Ausleihen Vorhanden");
             jScrollPane5.setVisible(false);
-        }
+        
     }//GEN-LAST:event_jBKundennummerOffeneAusleiheActionPerformed
 
     private void jButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton5StateChanged
@@ -1680,6 +1682,9 @@ public class Videothek extends javax.swing.JFrame {
         &&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)
         &&(Datenbankoperationen.CheckOffeneAusleihe(jTFASKundenNummer.getText())==false)){
             Datenbankoperationen.leihenAnlegen(jTFASArtikelNummer.getText(), jTFASKundenNummer.getText());
+        }
+        else{
+            
         }
         //Staus Feld
         jLASKundeAnzeigen.setText("Aktuelle Ausleihen für Kunde: "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getVorname()+" "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getNachname());
