@@ -800,71 +800,9 @@ public class Datenbankoperationen {
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(leihenAnlegen)", "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "SQL Panik", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
         verbindungSchließenZurDB();
-    }
-    
-    //alle Ausleihvorgänge eines Kunden ausgeben
-    public static ArrayList<Leihen> getKundenLeihenAlle(int Kunden_NR) {
-        verbindenZurDB();
-        ArrayList<Leihen> aList = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        Leihen leihen = new Leihen();
-        
-        try {
-            ps = connection_object.prepareStatement("SELECT * FROM leihen WHERE Kunden_NR = ?");
-            ps.setInt(1, Kunden_NR);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                
-                leihen.setFilm_ID(rs.getInt("Film_ID"));
-                leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
-                leihen.setAnfangsdatum(rs.getString("Anfangsdatum"));
-                leihen.setEnddatum(rs.getString("Enddatum"));
-                
-                               
-                aList.add(leihen);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getKundenLeihenAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } /*catch (IOException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        verbindungSchließenZurDB();
-        return aList;
-    }
-    
-    //alle Ausleihvorgänge eines Medium ausgeben
-    public static ArrayList<Leihen> getMediumLeihenAlle(int Film_ID) {
-        verbindenZurDB();
-        ArrayList<Leihen> aList = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        Leihen leihen = new Leihen();
-        
-        try {
-            ps = connection_object.prepareStatement("SELECT * FROM leihen WHERE FILM_ID = ?");
-            ps.setInt(1, Film_ID);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                
-                leihen.setFilm_ID(rs.getInt("Film_ID"));
-                leihen.setKunden_Nr(rs.getInt("Kunden_NR"));
-                leihen.setAnfangsdatum(rs.getString("Anfangsdatum"));
-                leihen.setEnddatum(rs.getString("Enddatum"));
-                
-                               
-                aList.add(leihen);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(getMediumLeihenAlle)", "Fehler", JOptionPane.ERROR_MESSAGE);
-        } /*catch (IOException ex) {
-            Logger.getLogger(Datenbankoperationen.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        verbindungSchließenZurDB();
-        return aList;
     }
     
     //Ausleihvorgänge löschen
@@ -984,7 +922,7 @@ public class Datenbankoperationen {
         try {
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM leihen WHERE Kunden_NR = "+kundenNr+" and Enddatum = null ");
+            rs = stmt.executeQuery("SELECT * FROM leihen WHERE Kunden_NR = "+kundenNr+" and Enddatum IS null ");
             while(rs.next()){ 
                 check = true;
                 break;
@@ -1013,7 +951,7 @@ public class Datenbankoperationen {
         try {
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM leihen WHERE leihen.Film_ID="+filmID+" and leihen.Enddatum = null ");
+            rs = stmt.executeQuery("SELECT * FROM leihen WHERE leihen.Film_ID="+filmID+" and leihen.Enddatum IS null ");
             while(rs.next()){ 
                 check = true;
                 break;

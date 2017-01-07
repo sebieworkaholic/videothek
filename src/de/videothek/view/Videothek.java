@@ -6,14 +6,23 @@
 package de.videothek.view;
 import  de.videothek.controls.*;
 import de.videothek.model.*;
+import java.awt.Color;
+import java.awt.event.KeyListener;
 import java.util.EventListener;
+import javafx.scene.input.KeyCharacterCombination;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 /**
  *
@@ -52,6 +61,7 @@ public class Videothek extends javax.swing.JFrame {
         jPOffeneAusleihenGesamt = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        jLabel33 = new javax.swing.JLabel();
         jPOffeneAusleihenKunde = new javax.swing.JPanel();
         jLKundennummerOffeneAusleihe = new javax.swing.JLabel();
         jTKundennummerOffeneAusleihen = new javax.swing.JTextField();
@@ -179,6 +189,12 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPAusleihenMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jPAusleiheStarten.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPAusleiheStartenMouseMoved(evt);
+            }
+        });
+
         jLASKundenNummer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLASKundenNummer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLASKundenNummer.setText("Kunden-Nr.:");
@@ -187,9 +203,31 @@ public class Videothek extends javax.swing.JFrame {
         jLASArtikelNummer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLASArtikelNummer.setText("Artikel-Nr.:");
 
-        jTFASKundenNummer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTFASKundenNummer.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jTFASKundenNummer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFASKundenNummerMouseClicked(evt);
+            }
+        });
+        jTFASKundenNummer.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jTFASKundenNummerInputMethodTextChanged(evt);
+            }
+        });
+        jTFASKundenNummer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFASKundenNummerActionPerformed(evt);
+            }
+        });
 
-        jTFASArtikelNummer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTFASArtikelNummer.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jTFASArtikelNummer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFASArtikelNummerMouseClicked(evt);
+            }
+        });
 
         jBASAusleiheBestaetigen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jBASAusleiheBestaetigen.setText("Ausleihe Bestätigen");
@@ -198,9 +236,13 @@ public class Videothek extends javax.swing.JFrame {
                 jBASAusleiheBestaetigenActionPerformed(evt);
             }
         });
+        jBASAusleiheBestaetigen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBASAusleiheBestaetigenKeyPressed(evt);
+            }
+        });
 
         jLASKundeAnzeigen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLASKundeAnzeigen.setText("Aktuelle Ausleihen für Kunde: <Kunde Anzeigen>");
 
         javax.swing.GroupLayout jPAusleiheStartenLayout = new javax.swing.GroupLayout(jPAusleiheStarten);
         jPAusleiheStarten.setLayout(jPAusleiheStartenLayout);
@@ -219,7 +261,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPAusleiheStartenLayout.createSequentialGroup()
-                        .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                        .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
                         .addContainerGap())
                     .addComponent(jScrollPane6)))
         );
@@ -230,6 +272,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addComponent(jLASKundeAnzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6)
                     .addGroup(jPAusleiheStartenLayout.createSequentialGroup()
                         .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTFASKundenNummer)
@@ -238,10 +281,9 @@ public class Videothek extends javax.swing.JFrame {
                         .addGroup(jPAusleiheStartenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLASArtikelNummer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTFASArtikelNummer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBASAusleiheBestaetigen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(412, Short.MAX_VALUE))
-                    .addComponent(jScrollPane6)))
+                        .addContainerGap(421, Short.MAX_VALUE))))
         );
 
         jTPAusleihenMenu.addTab("Ausleihe Starten...", jPAusleiheStarten);
@@ -254,6 +296,9 @@ public class Videothek extends javax.swing.JFrame {
             }
         });
 
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setText("Gesamtübersicht:");
+
         javax.swing.GroupLayout jPOffeneAusleihenGesamtLayout = new javax.swing.GroupLayout(jPOffeneAusleihenGesamt);
         jPOffeneAusleihenGesamt.setLayout(jPOffeneAusleihenGesamtLayout);
         jPOffeneAusleihenGesamtLayout.setHorizontalGroup(
@@ -262,17 +307,21 @@ public class Videothek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE))
+                .addGroup(jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                    .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
+                        .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPOffeneAusleihenGesamtLayout.setVerticalGroup(
             jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPOffeneAusleihenGesamtLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPOffeneAusleihenGesamtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPOffeneAusleihenGesamtLayout.createSequentialGroup()
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(569, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTPAusleihenMenu.addTab("Offene Ausleihen Gesamt", jPOffeneAusleihenGesamt);
@@ -338,7 +387,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -401,7 +450,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         jTPHauptmenue.addTab("Rückgabe", jPRueckgabe);
@@ -432,8 +481,6 @@ public class Videothek extends javax.swing.JFrame {
                 jBAendernKdrSuchenActionPerformed(evt);
             }
         });
-
-        jLAenderAuto.setText("<auto Text");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -574,7 +621,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addGroup(jPKundeBearbeitenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBKundeAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLAenderAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Kunde Bearbeiten", jPKundeBearbeiten);
@@ -591,7 +638,6 @@ public class Videothek extends javax.swing.JFrame {
         });
 
         jLKundennummerAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLKundennummerAuto.setText("<autoKDNR>");
 
         jLKundennummerText.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLKundennummerText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -727,7 +773,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBKundeSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Neuen Kunden anlegen...", jPNeuerKunde);
@@ -754,22 +800,19 @@ public class Videothek extends javax.swing.JFrame {
 
         jLVornameAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLVornameAuto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLVornameAuto.setText("<auto Vorname>");
 
         jLNachnameAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLNachnameAuto.setText("<auto Nachname>");
 
         jLAdresseAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLAdresseAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLAdresseAuto.setText("<auto Adresse>");
 
         jLAusleiheStatusAuto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLAusleiheStatusAuto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLAusleiheStatusAuto.setText("<auto Ausleihstatus: wenn ausleihe, dann nicht löschbar");
 
         jBLoeschen.setBackground(new java.awt.Color(255, 0, 0));
         jBLoeschen.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBLoeschen.setText("Löschen");
+        jBLoeschen.setEnabled(false);
         jBLoeschen.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jBLoeschenItemStateChanged(evt);
@@ -826,7 +869,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addComponent(jLAusleiheStatusAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBLoeschen, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         jTPKundenMenu.addTab("Kunde Löschen", jPKundeLoeschen);
@@ -856,7 +899,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(563, Short.MAX_VALUE))))
+                        .addContainerGap(565, Short.MAX_VALUE))))
         );
 
         jTPKundenMenu.addTab("Alle Kunden", jPanel5);
@@ -874,7 +917,9 @@ public class Videothek extends javax.swing.JFrame {
 
         jTPHauptmenue.addTab("Kunden", jPKunden);
 
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(200, 80));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -963,7 +1008,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 264, Short.MAX_VALUE)
+                        .addGap(0, 325, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -994,7 +1039,7 @@ public class Videothek extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField17)
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
@@ -1021,7 +1066,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jComboBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Neu Erstellen", jPanel1);
@@ -1100,7 +1145,7 @@ public class Videothek extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField9)
                             .addComponent(jTextField11)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                            .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1142,7 +1187,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(boxFSKA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 127, Short.MAX_VALUE))
+                .addGap(0, 129, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Verändern", jPanel2);
@@ -1155,6 +1200,12 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("Löschen");
+        jButton5.setEnabled(false);
+        jButton5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jButton5StateChanged(evt);
+            }
+        });
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -1163,10 +1214,8 @@ public class Videothek extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel26.setText("<auto artikel nr>");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel27.setText("<auto bezeichnung>");
 
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton8.setText("Suchen");
@@ -1194,7 +1243,7 @@ public class Videothek extends javax.swing.JFrame {
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1210,7 +1259,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Löschen", jPanel3);
@@ -1231,7 +1280,7 @@ public class Videothek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1241,7 +1290,7 @@ public class Videothek extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(550, Short.MAX_VALUE))))
+                        .addContainerGap(552, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Alle Medien", jPanel4);
@@ -1250,11 +1299,11 @@ public class Videothek extends javax.swing.JFrame {
         jPMedien.setLayout(jPMedienLayout);
         jPMedienLayout.setHorizontalGroup(
             jPMedienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPMedienLayout.setVerticalGroup(
             jPMedienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTPHauptmenue.addTab("Medien", jPMedien);
@@ -1303,6 +1352,7 @@ public class Videothek extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
@@ -1332,6 +1382,7 @@ public class Videothek extends javax.swing.JFrame {
             else{
                 jLAusleiheStatusAuto.setText("Kunde kann gelöscht werden");
                 checkAusleihe = true;
+                jBLoeschen.setEnabled(true);
             }
         }
         else{
@@ -1433,6 +1484,7 @@ public class Videothek extends javax.swing.JFrame {
         // TODO add your handling code here:
         if((checkAusleihe==true)&&(Datenbankoperationen.CheckKundennummern(jTFKundennummer.getText())==true)){
             Datenbankoperationen.kundenLöschen(jTFKundennummer.getText());
+            jBLoeschen.setEnabled(false);
         }
         else{
             JOptionPane.showMessageDialog(null, "Kundennummer existiert nicht!", "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -1442,11 +1494,17 @@ public class Videothek extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         Datenbankoperationen.medietypenAnlegen(jTextField17.getText());
+        jTextField17.setText("");
+        jComboBox1.removeAllItems();
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getMedientypenNameAlle()));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         Datenbankoperationen.kategorieAnlegen(jTextField18.getText());
+        jTextField18.setText("");
+        jComboBox2.removeAllItems();
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(Datenbankoperationen.getKategorieNameAlle()));
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1482,6 +1540,7 @@ public class Videothek extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if(Dummy.checkIntFilmJahr(jTextField13.getText())==true){
+            
             Medien update = new Medien();
             int i = 0;
             try{
@@ -1492,20 +1551,33 @@ public class Videothek extends javax.swing.JFrame {
                 update.setErscheinungsjahr(jTextField13.getText());
                 update.setKategorie(boxKatA.getSelectedIndex()+1);
                 update.setFSK(boxFSKA.getSelectedIndex()+1);
-                Datenbankoperationen.medienAendern(update);                
+                Datenbankoperationen.medienAendern(update);  
+                
+                //Clear all
+                jLabel12.setText("");
+                jTextField11.setText("");
+                jTextField13.setText("");
+                boxMedA.removeAllItems();
+                boxKatA.removeAllItems();
+                boxFSKA.removeAllItems();
             }
             catch (Exception e){
             JOptionPane.showMessageDialog(null, "Unwirklicher Fehler", "Fatal Error", JOptionPane.ERROR_MESSAGE);
             }  
         }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         if((Dummy.checkIntArtikelNr(jTextField16.getText())==true)&&(Datenbankoperationen.medienCheckArtikelNr(jTextField16.getText())==true)){
+            jButton5.setEnabled(true);
             Medien loadMedien = Datenbankoperationen.medienAuslesen(jTextField16.getText());
             jLabel26.setText(""+loadMedien.getFILM_ID()+"");
             jLabel27.setText(loadMedien.getTitel());
+        }
+        else{
+            jButton5.setEnabled(false);
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1530,16 +1602,22 @@ public class Videothek extends javax.swing.JFrame {
                     else{
                     JOptionPane.showMessageDialog(null,"Artikel ausgeliehen","Nicht möglich",JOptionPane.ERROR_MESSAGE);
                     }
-                     
-                    
+                                       
                     break;
-        }                    
+        }
+        jButton5.setEnabled(false);
+        jLabel26.setText("");
+        jLabel27.setText("");
+        jTextField16.setText("");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
         JTable jTable2 = new javax.swing.JTable();
-        DefaultTableModel dtm2 = Datenbankoperationen.buildTable("SELECT * FROM medien ORDER BY FILM_ID ASC");
+        DefaultTableModel dtm2 = Datenbankoperationen.buildTable(
+                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, fsk.Altersklasse, kategorien.Kategoriename"
+               +"FROM leihen, t_kunden, medien, fsk, kategorien WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR=t_kunden.Kunden_Nr AND leihen.Film_ID"
+               +"=medien.FILM_ID AND medien.Kategorie=kategorien.KAT_ID AND medien.FSK=fsk.FSK_ID ORDER BY leihen.Anfangsdatum ASC");
         jTable2.setModel(dtm2);
         jScrollPane4.setViewportView(jTable2);
         
@@ -1559,7 +1637,10 @@ public class Videothek extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         JTable jTable1 = new javax.swing.JTable();
-        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null ORDER BY Anfangsdatum ASC");
+        DefaultTableModel dtm = Datenbankoperationen.buildTable(
+                "SELECT leihen.Film_ID, leihen.Kunden_NR, t_kunden.Anrede, t_kunden.Vorname, t_kunden.Nachname, medien.Titel, "
+               +"fsk.Altersklasse, kategorien.Kategoriename, (CURRENT_DATE-leihen.Anfangsdatum) AS Dauer FROM leihen, t_kunden, "
+               +"medien, fsk, kategorien WHERE leihen.Enddatum IS NULL ORDER BY leihen.Anfangsdatum ASC");
         jTable1.setModel(dtm);
         jScrollPane2.setViewportView(jTable1);
         
@@ -1577,42 +1658,73 @@ public class Videothek extends javax.swing.JFrame {
             DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null AND Kunden_NR="+jTKundennummerOffeneAusleihen.getText()+" ORDER BY Anfangsdatum ASC");
             jTable1.setModel(dtm);
             jScrollPane5.setViewportView(jTable1);
-            
+            jScrollPane5.setVisible(true);            
+        }
+        else{
+            jLabel19.setText("");
+            jLabel31.setText("");
+            jLabel32.setText("Keine Ausleihen Vorhanden");
+            jScrollPane5.setVisible(false);
         }
     }//GEN-LAST:event_jBKundennummerOffeneAusleiheActionPerformed
 
-    private void jBASAusleiheBestaetigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBASAusleiheBestaetigenActionPerformed
+    private void jButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton5StateChanged
         // TODO add your handling code here:
-        boolean checkKunde1 = false;
-        boolean checkKunde2 = false;
-        boolean checkArtikel1 = false;
-        boolean checkArtikel2 = false;
-        if((Dummy.checkInt(jTFASKundenNummer.getText()) == true)&&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)){            
-            checkKunde1 = true;
-        }
-        if(Datenbankoperationen.CheckOffeneAusleihe(jTFASKundenNummer.getText())==false){
-            checkKunde2 = true;
-        }
-        if((Dummy.checkIntArtikelNr(jTFASArtikelNummer.getText())==true)&&(Datenbankoperationen.medienCheckArtikelNr(jTFASArtikelNummer.getText())==true)){
-            checkArtikel1 = true;
-        }
-        if(Datenbankoperationen.CheckArtikelAusgeliehen(jTFASArtikelNummer.getText())==false){
-            checkArtikel2 = true;
-        }
-        if((checkKunde1 && checkKunde2 && checkArtikel1 && checkArtikel2) == true){
+    }//GEN-LAST:event_jButton5StateChanged
+
+    private void jBASAusleiheBestaetigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBASAusleiheBestaetigenActionPerformed
+        if((Dummy.checkIntArtikelNr(jTFASArtikelNummer.getText())==true)
+        &&(Datenbankoperationen.medienCheckArtikelNr(jTFASArtikelNummer.getText())==true)
+        &&(Datenbankoperationen.CheckArtikelAusgeliehen(jTFASArtikelNummer.getText())==false)
+        &&(Dummy.checkInt(jTFASKundenNummer.getText()) == true)
+        &&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)
+        &&(Datenbankoperationen.CheckOffeneAusleihe(jTFASKundenNummer.getText())==false)){
             Datenbankoperationen.leihenAnlegen(jTFASArtikelNummer.getText(), jTFASKundenNummer.getText());
-            
-            //Staus Feld
-            JTable jTable1 = new javax.swing.JTable();
-            DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null AND Kunden_NR="+jTFASKundenNummer.getText()+" AND Anfangsdatum=CURRENT_DATE ORDER BY Anfangsdatum ASC");
-            jTable1.setModel(dtm);
-            jScrollPane5.setViewportView(jTable1);
-            
-            
         }
+        //Staus Feld
+        jLASKundeAnzeigen.setText("Aktuelle Ausleihen für Kunde: "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getVorname()+" "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getNachname());
+        JTable jTable1 = new javax.swing.JTable();
+        DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR="+jTFASKundenNummer.getText()+" AND Anfangsdatum=CURRENT_DATE ORDER BY Anfangsdatum ASC ");
+        jTable1.setModel(dtm);
+        jScrollPane6.setViewportView(jTable1);
+        jTFASArtikelNummer.setText("");
+        jTFASKundenNummer.setText("");
+
         //Kunden kunde = Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText());
         //Medien loadMedien = Datenbankoperationen.medienAuslesen(jTFASArtikelNummer.getText());
     }//GEN-LAST:event_jBASAusleiheBestaetigenActionPerformed
+
+    private void jTFASArtikelNummerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFASArtikelNummerMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jTFASArtikelNummerMouseClicked
+
+    private void jTFASKundenNummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFASKundenNummerActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTFASKundenNummerActionPerformed
+
+    private void jTFASKundenNummerInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTFASKundenNummerInputMethodTextChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTFASKundenNummerInputMethodTextChanged
+
+    private void jTFASKundenNummerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFASKundenNummerMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTFASKundenNummerMouseClicked
+
+    private void jPAusleiheStartenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPAusleiheStartenMouseMoved
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jPAusleiheStartenMouseMoved
+
+    private void jBASAusleiheBestaetigenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBASAusleiheBestaetigenKeyPressed
+        
+                
+            
+        
+    }//GEN-LAST:event_jBASAusleiheBestaetigenKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1719,6 +1831,7 @@ public class Videothek extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
