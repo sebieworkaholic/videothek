@@ -420,6 +420,11 @@ public class Videothek extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Rückgabe Bestätigen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPRueckgabeLayout = new javax.swing.GroupLayout(jPRueckgabe);
         jPRueckgabe.setLayout(jPRueckgabeLayout);
@@ -1655,19 +1660,18 @@ public class Videothek extends javax.swing.JFrame {
             jLabel32.setText(kunde.getStrasse()+", "+kunde.getPlz()+" "+kunde.getWohnort());
             
             JTable jTable1 = new javax.swing.JTable();
-            DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum=null AND Kunden_NR="+jTKundennummerOffeneAusleihen.getText()+" ORDER BY Anfangsdatum ASC");
+            DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR="+jTKundennummerOffeneAusleihen.getText()+" ORDER BY Anfangsdatum ASC ");
             jTable1.setModel(dtm);
             jScrollPane5.setViewportView(jTable1);
             jScrollPane5.setVisible(true);            
         }
         else{
             JOptionPane.showMessageDialog(null,"Artikel ausgeliehen / Fehler","Nicht möglich",JOptionPane.ERROR_MESSAGE);
-        }
             jLabel19.setText("");
             jLabel31.setText("");
             jLabel32.setText("Keine Ausleihen Vorhanden");
             jScrollPane5.setVisible(false);
-        
+        }
     }//GEN-LAST:event_jBKundennummerOffeneAusleiheActionPerformed
 
     private void jButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton5StateChanged
@@ -1679,19 +1683,20 @@ public class Videothek extends javax.swing.JFrame {
         &&(Datenbankoperationen.medienCheckArtikelNr(jTFASArtikelNummer.getText())==true)
         &&(Datenbankoperationen.CheckArtikelAusgeliehen(jTFASArtikelNummer.getText())==false)
         &&(Dummy.checkInt(jTFASKundenNummer.getText()) == true)
-        &&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)
-        &&(Datenbankoperationen.CheckOffeneAusleihe(jTFASKundenNummer.getText())==false)){
+        &&(Datenbankoperationen.CheckKundennummern(jTFASKundenNummer.getText())==true)){        
             Datenbankoperationen.leihenAnlegen(jTFASArtikelNummer.getText(), jTFASKundenNummer.getText());
         }
         else{
-            
+            JOptionPane.showMessageDialog(null,"Vorgang nicht möglich","Fehler",JOptionPane.ERROR_MESSAGE);
         }
         //Staus Feld
         jLASKundeAnzeigen.setText("Aktuelle Ausleihen für Kunde: "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getVorname()+" "+Datenbankoperationen.kundeAuslesen(jTFASKundenNummer.getText()).getNachname());
         JTable jTable1 = new javax.swing.JTable();
         DefaultTableModel dtm = Datenbankoperationen.buildTable("SELECT * FROM leihen WHERE leihen.Enddatum IS NULL AND leihen.Kunden_NR="+jTFASKundenNummer.getText()+" AND Anfangsdatum=CURRENT_DATE ORDER BY Anfangsdatum ASC ");
-        jTable1.setModel(dtm);
+        jTable1.setModel(dtm);        
         jScrollPane6.setViewportView(jTable1);
+        jScrollPane6.revalidate();
+        jScrollPane6.repaint();
         jTFASArtikelNummer.setText("");
         jTFASKundenNummer.setText("");
 
@@ -1730,6 +1735,18 @@ public class Videothek extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_jBASAusleiheBestaetigenKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if((Dummy.checkIntArtikelNr(jTextField2.getText())==true)
+        &&(Datenbankoperationen.medienCheckArtikelNr(jTextField2.getText())==true)
+        &&(Datenbankoperationen.CheckArtikelAusgeliehen(jTextField2.getText())==true)
+        &&(Dummy.checkInt(jTextField1.getText()) == true)
+        &&(Datenbankoperationen.CheckKundennummern(jTextField1.getText())==true)
+        &&(Datenbankoperationen.CheckOffeneAusleihe(jTextField1.getText())==true)){        
+            Datenbankoperationen.ausleihvorgängeLoeschen(jTextField1.getText(), jTextField2.getText());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

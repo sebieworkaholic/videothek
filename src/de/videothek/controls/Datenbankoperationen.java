@@ -806,14 +806,15 @@ public class Datenbankoperationen {
     }
     
     //Ausleihvorgänge löschen
-    public static void ausleihvorgängeLoeschen(int Kunden_NR, int Film_ID) {
+    public static void ausleihvorgängeLoeschen(String Kunden_NR, String Film_ID) {
         verbindenZurDB();
         PreparedStatement ps;
         try {
             ps = connection_object.prepareStatement("DELETE FROM leihen WHERE Film_ID=? AND Kunden_NR=?");
-            ps.setInt(1, Film_ID);
-            ps.setInt(2, Kunden_NR);
+            ps.setString(1, Film_ID);
+            ps.setString(2, Kunden_NR);
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Ausleihvorgang> Film:"+Film_ID+" Kunden-Nr.: "+Kunden_NR+" gelöscht.", "NICE", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "SQL Server läuft nicht bitte verlassen Sie in Panik das Gebäude(ausleihvorgängeLoeschen)", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
@@ -877,15 +878,13 @@ public class Datenbankoperationen {
         Statement stmt;
         ResultSet rs; 
         boolean check = false;
-        List<String> liste = new ArrayList<String>();
-        int i = 0;
         try {
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT Kunden_Nr FROM t_kunden");
+            rs = stmt.executeQuery("SELECT Kunden_Nr FROM t_kunden WHERE Kunden_Nr="+kundenNr+"");
             while(rs.next()){ 
-                liste.add(rs.getString(1));
-                i++;
+                check=true;
+                break;
             }
             rs.close();
             stmt.close();
@@ -899,17 +898,6 @@ public class Datenbankoperationen {
                     JOptionPane.showMessageDialog(null, "SQL Connect", "Just a Mistake", JOptionPane.ERROR_MESSAGE);
                 }
             } 
-        }
-        if(i > 0){
-            for(int a = 0; a < liste.size() ; a++){
-                if(liste.get(a).equals(kundenNr) == true){
-                    check = true;
-                    break;
-                }
-                else{
-                    continue;
-                }
-            }
         }        
         return check;
     }
@@ -951,7 +939,7 @@ public class Datenbankoperationen {
         try {
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM leihen WHERE leihen.Film_ID="+filmID+" and leihen.Enddatum IS null ");
+            rs = stmt.executeQuery("SELECT * FROM leihen WHERE leihen.Film_ID="+filmID+" AND leihen.Enddatum IS null ");
             while(rs.next()){ 
                 check = true;
                 break;
